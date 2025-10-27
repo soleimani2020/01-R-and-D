@@ -10,7 +10,7 @@ This repository showcases my work on **ultra-coarse-grained membrane models** an
 
 ---
 
-## 🧩 Project Categories
+## 🧩 Repository Categories
 
 | Category | Description |
 |-----------|--------------|
