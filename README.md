@@ -29,12 +29,11 @@ Understanding the codes in this repository requires a solid background in:
 
 ---
 
-## 🚀 Features
+## ✉️ Questions
 
-- Systematic parametrization of ultra-coarse-grained lipid membranes.  
-- Efficient simulation workflows for large-scale systems.  
-- Data analysis pipelines for MD trajectories, including customizable scripts.  
-- Modular Python code, easily adaptable for different membrane systems and proteins.  
+
+Feel free to reach out: **ar.soleimani28@gmail.com**
+ 
 
 ---
 
