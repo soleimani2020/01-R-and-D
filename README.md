@@ -1,4 +1,4 @@
-# SMARTINI3 & DATA_ANALYSIS SCRIOTS
+# SMARTINI3 & DATA ANALYSIS 
 
 A collection of my Python scripts and frameworks for multi-scale membrane modeling, data analysis, and molecular dynamics simulations.  
 
