@@ -37,6 +37,3 @@ Feel free to reach out: **ar.soleimani28@gmail.com**
 
 ---
 
-## 📖 References
-
-- **SMARTINI3 Paper:** *Systematic Parametrization of Realistic Multi-Scale Membrane Models via Unsupervised Learning and Multi-Objective Evolutionary Algorithms* (arXiv:2405.05864)  
