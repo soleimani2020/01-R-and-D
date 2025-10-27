@@ -1,3 +1,12 @@
-# Data_Analysis Project
+# 📂 Repository Overview
 
-This folder contains analysis, data, scripts, and results for the SMARTINI3 project.
+This repository contains general-purpose **Python scripts for data analysis**.
+
+## ⚠️ Note
+Understanding the codes in this Repository requires a solid background in:  
+- 🧬 Computational Biology  
+- 🧪 Molecular Dynamics Simulations  
+- 🌊 Membrane Systems  
+
+## ✉️ Questions
+Feel free to reach out: **ar.soleimani28@gmail.com**
