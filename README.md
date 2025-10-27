@@ -15,7 +15,7 @@ This repository showcases my work on **ultra-coarse-grained membrane models** an
 | Category | Description |
 |-----------|--------------|
 | **SMARTINI3 Membrane Model** | Minimal yet realistic ultra-coarse-grained (UCG) membrane model. Parameterized systematically using **unsupervised learning** and **multi-objective evolutionary algorithms**. Maintains biophysical fidelity while enabling large-scale simulations, achieving ~35% faster performance with Martini membrane proteins compared to standard models. |
-| **MDAnalysis & Python Scripts** | General-purpose Python scripts for analyzing molecular dynamics simulations. Focuses on membrane systems, proteins, water, and other biomolecular components. Designed for tasks like calculating mean-square displacement, radius of gyration, local curvature, and other structural properties. |
+| **MDAnalysis & Python Scripts** | General-purpose Python scripts for analyzing molecular dynamics simulations. Focuses on membrane systems, proteins, water, and other biomolecular components. |
 
 ---
 
