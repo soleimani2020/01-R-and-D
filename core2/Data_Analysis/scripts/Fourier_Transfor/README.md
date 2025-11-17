@@ -41,6 +41,7 @@ pip install numpy pandas matplotlib scipy MDAnalysis
 
 Flow:
 
+python3 Dynamic_Length_Calculation1.py --traj traj_comp.xtc --tpr nvt_auto.tpr --frames 100 --num_segments_global 37
 
 
 
