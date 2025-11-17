@@ -40,6 +40,6 @@ pip install numpy pandas matplotlib scipy MDAnalysis
 
 ## 📌 Workflow
 python3 Dynamic_Length_Calculation1.py --traj traj_comp.xtc --tpr nvt_auto.tpr --frames 100 --num_segments_global 37
-python3 FFT3_IMAGINARY.py
-python3 FFT3_Magnitude.py
-python3 FFT3_REAL.py
+python3 FFT3_IMAGINARY.py  --num_segments_global 37
+python3 FFT3_Magnitude.py  --num_segments_global 37
+python3 FFT3_REAL.py       --num_segments_global 37
