@@ -6,7 +6,7 @@ A Python script to **analyze fluctuation modes and relaxation times of a tube me
 
 ## ✨ Features
 
-- ✅ To use this code, you must first generate the file "Radius_mean_segment.txt" by running Dynamic_Length_Calculation.py on your MD trajectory (*.tpr and *.xtc required).
+- ✅ To use this code, you must first generate the file "mean_segment_df_V2.txt" by running Dynamic_Length_Calculation.py on your MD trajectory (*.tpr and *.xtc required).
 - ✅ "Radius_mean_segment.txt" shows how the radius fluctuates over time for each tube membrane configuration. Each row in this file represents the average radius of a segment of a certain size (R(z)), and each column corresponds to the time evolution of the simulation.
 - ✅ FFT3_Magnitude.py extracts each row from "Radius_mean_segment.txt" and sees that as **R(z)** and applies a Fast Fourier transform to analyze its frequency components. The resulting frequency magnitudes are then averaged to obtain the ensemble average of fluctuation modes.
 - 
