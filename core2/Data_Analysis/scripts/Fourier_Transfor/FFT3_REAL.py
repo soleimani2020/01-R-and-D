@@ -1,3 +1,17 @@
+#!/usr/bin/env python3
+import argparse
+
+# -------------------------
+# Command-line arguments
+# -------------------------
+parser = argparse.ArgumentParser(description="FFT and autocorrelation analysis")
+parser.add_argument("--num_segments_global", type=int, default=500, 
+                    help="Number of segments used for autocorrelation analysis")
+args = parser.parse_args()
+
+num_segments = args.num_segments_global
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 import MDAnalysis as mda
@@ -10,11 +24,12 @@ from datetime import datetime
 
 # ---------- FFT Analysis ----------
 
-file_path = "Radius_mean_segment.txt"  
-num_columns = 37
+file_path = "mean_segment_df_V2.txt"  
+num_columns = num_segments
 column_names = [f'Col{i+1}' for i in range(num_columns)]
 df = pd.read_csv(file_path, sep='\s+', header=None, names=column_names, usecols=range(num_columns))
-print("df:\n", df)
+df = df.dropna()
+#print("df:\n", df)
 
 
 # Calculate wave_vector and sorting indices for sorting from lowest to highest frequency
