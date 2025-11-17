@@ -32,5 +32,12 @@ Install via pip:
 ```bash
 pip install MDAnalysis numpy pandas matplotlib scipy
 
-
+**Run the code:**
+```bash
 python3 Dynamic_Length_Calculation1.py --traj traj_comp.xtc --tpr nvt_auto.tpr --frames 100 --num_segments_global 37
+
+
+
+
+
+
