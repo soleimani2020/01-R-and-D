@@ -27,10 +27,6 @@ This project analyzes per-segment membrane radii, computes statistical propertie
 - `matplotlib`  
 - `scipy`  
 
-Install via pip:
-
-```bash
-pip install MDAnalysis numpy pandas matplotlib scipy
 
 **Run the code:**
 ```bash
