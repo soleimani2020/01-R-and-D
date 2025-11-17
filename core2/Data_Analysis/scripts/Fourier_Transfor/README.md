@@ -37,3 +37,12 @@ Install via pip:
 
 ```bash
 pip install numpy pandas matplotlib scipy MDAnalysis
+
+
+Flow:
+
+
+
+
+
+
