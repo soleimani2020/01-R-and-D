@@ -232,7 +232,7 @@ def exp_decay(x, y0, A, tau):
 # ---------- Relaxation time Analysis ----------
 
 
-num_segments = 500
+num_segments = 500 # For Autocorrelation
 
 results = []
 
