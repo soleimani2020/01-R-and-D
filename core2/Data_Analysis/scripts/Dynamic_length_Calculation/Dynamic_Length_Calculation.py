@@ -9,8 +9,23 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import norm
+import argparse
 
-num_segments_global = 37 
+
+# ------------------ Argument Parser ------------------
+parser = argparse.ArgumentParser(description="Dynamic Length Calculation for MD Trajectories")
+parser.add_argument('--traj', type=str, required=True, help='Trajectory file (.xtc)')
+parser.add_argument('--tpr', type=str, required=True, help='Topology file (.tpr)')
+parser.add_argument('--frames', type=int, default=1000000, help='Number of frames to analyze')
+parser.add_argument('--num_segments_global', type=int, default=37, help='Number of segments along z-axis')
+args = parser.parse_args()
+
+traj_file = args.traj
+tpr_file = args.tpr
+FRAME_ANALYSIS = args.frames
+num_segments_global = args.num_segments_global
+
+
 
 # Load system
 u = mda.Universe("nvt_auto.tpr", "traj_comp.xtc")
@@ -21,7 +36,6 @@ z_min_global = np.inf
 z_max_global = -np.inf
 
 data = []
-FRAME_ANALYSIS=10000
 
 for ts in u.trajectory[:FRAME_ANALYSIS]:
     ag = u.select_atoms('name NC3 PO4 GL1 GL2 C1A C2A C3A C1B C2B C3B')
@@ -94,7 +108,10 @@ for ts in u.trajectory[:FRAME_ANALYSIS]:
         #print(segment_z_max)
 
         segment_ag = ag.select_atoms(f"prop z >= {segment_z_min} and prop z < {segment_z_max}")
-
+        
+        
+        
+        
         if len(segment_ag) == 0:
             mean_segment_values[f'Segment_{segment+1}'].append(np.nan)
             #print(f"Segment {segment+1} has no atoms, appended NaN")
@@ -111,6 +128,69 @@ for ts in u.trajectory[:FRAME_ANALYSIS]:
         center_of_mass = segment_ag.center_of_mass()
         distances = np.linalg.norm(segment_ag.positions[:, 0:2] - center_of_mass[0:2], axis=1)
         mean_segment_values[f'Segment_{segment+1}'].append(np.mean(distances))
+        
+        
+        
+        
+        
+#         # Extract coordinates
+#         positions = segment_ag.positions
+#         x = positions[:, 0]
+#         y = positions[:, 1]
+#         z = positions[:, 2]
+# 
+#         # Compute radius based on center_of_mass
+#         radius = np.sqrt(np.mean((x - center_of_mass[0])**2 + (y - center_of_mass[1])**2))
+# 
+#         # --- 3D Plot ---
+#         fig = plt.figure(figsize=(8, 6))
+#         ax = fig.add_subplot(111, projection='3d')
+# 
+#         # Circle in XY-plane at z = center_of_mass[2]
+#         theta = np.linspace(0, 2 * np.pi, 200)
+#         x_circle = center_of_mass[0] + radius * np.cos(theta)
+#         y_circle = center_of_mass[1] + radius * np.sin(theta)
+#         z_circle = np.full_like(theta, center_of_mass[2])
+# 
+#         ax.plot(x_circle, y_circle, z_circle, color='r', linewidth=2, label="Radius")
+#         ax.scatter(x, y, z, c='b', marker='o', alpha=0.5, label="Selected Atoms")
+#         ax.scatter(center_of_mass[0], center_of_mass[1], center_of_mass[2],
+#                 c='k', marker='*', s=200, label="Center of Mass")
+# 
+#         # Annotate radius on the plot
+#         ax.text(center_of_mass[0] + radius, center_of_mass[1], center_of_mass[2],
+#                 f"R = {radius:.2f}", color='red', fontsize=10, weight='bold')
+# 
+#         # Labels and title
+#         ax.set_xlabel("X-axis (radial)")
+#         ax.set_ylabel("Y-axis (radial)")
+#         ax.set_zlabel("Z-axis (longitudinal)")
+#         ax.set_title(f"Segment {segment + 1}: Z = [{segment_z_min:.2f}, {segment_z_max:.2f})")
+#         ax.legend()
+#         ax.view_init(elev=25, azim=45)
+#         plt.tight_layout()
+#         plt.show()
+# 
+#         # --- 2D XY Plot ---
+#         plt.figure(figsize=(6, 6))
+#         plt.plot(x_circle, y_circle, color='r', linewidth=2, label="Inner Radius")
+#         plt.scatter(x, y, c='b', marker='o', alpha=0.3, label="Selected Atoms")
+#         plt.scatter(center_of_mass[0], center_of_mass[1], c='k', marker='*', s=200, label="Center of Mass")
+# 
+#         # Annotate radius on the 2D plot
+#         plt.text(center_of_mass[0] + radius, center_of_mass[1],
+#                 f"R = {radius:.2f}", color='red', fontsize=10, weight='bold')
+# 
+#         plt.xlabel("X-axis (radial)")
+#         plt.ylabel("Y-axis (radial)")
+#         plt.title(f"Segment {segment + 1}: XY view (Z along the axis)")
+#         plt.axis('equal')
+#         plt.legend()
+#         plt.tight_layout()
+#         plt.show()
+#                 
+        
+
         
 
 
@@ -239,6 +319,12 @@ plt.tight_layout()
 
 
 
+
+
+# Save Segment_Index and Mean_Radius without a header
+with open("segment_mean_radius_1.38.xvg", "w") as f:
+    for i, mean in enumerate(segment_means, start=1):
+        f.write(f"{i}\t{mean:.4f}\n")
 
 
 
