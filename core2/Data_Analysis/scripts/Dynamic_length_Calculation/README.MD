@@ -30,5 +30,5 @@ This project analyzes per-segment membrane radii, computes statistical propertie
 
 **Run the code:**
 ```bash
-python3 Dynamic_Length_Calculation1.py --traj traj_comp.xtc --tpr nvt_auto.tpr --frames 100 --num_segments_global 37
+python3 Dynamic_Length_Calculation.py --traj traj_comp.xtc --tpr nvt_auto.tpr --frames 100 --num_segments_global 37
 
