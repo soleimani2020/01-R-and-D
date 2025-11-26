@@ -420,5 +420,23 @@ plt.show()
 print("All plots created successfully!")
 
 
+import os
+import glob
+import shutil
 
+# Create the Constriction directory if it doesn't exist
+output_dir = 'Constriction'
+os.makedirs(output_dir, exist_ok=True)
+
+# Find all files matching the patterns
+txt_files = glob.glob('average_radius_vs_position_bin_*.txt')
+png_files = glob.glob('average_radius_vs_position_bin_*.png')
+
+# Move all matching files
+for file in txt_files + png_files:
+    destination = os.path.join(output_dir, file)
+    shutil.move(file, destination)
+    print(f"Moved: {file} -> {destination}")
+
+print(f"Total files moved: {len(txt_files) + len(png_files)}")
 
