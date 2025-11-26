@@ -24,18 +24,24 @@ from datetime import datetime
 
 # ---------- FFT Analysis ----------
 
-file_path = "mean_segment_df_V2.txt"  
+file_path = "../mean_segment_df_V2.txt"  
 num_columns = num_segments
 column_names = [f'Col{i+1}' for i in range(num_columns)]
 df = pd.read_csv(file_path, sep='\s+', header=None, names=column_names, usecols=range(num_columns))
 df = df.dropna()
-#print("df:\n", df)
+
+# Remove the first row
+df = df.iloc[1:]
+
+
+num_data = len(df)-1
+print(num_data)
 
 
 # Calculate wave_vector and sorting indices for sorting from lowest to highest frequency
 dx = 2.1 # nm
 N = num_columns
-frequencies = np.fft.fftfreq(N, d=dx) * 2 * np.pi  
+frequencies = np.fft.fftfreq(N, d=dx) * 2 * np.pi  # q = 2 * np.pi * frequencies
 sorted_idx = np.argsort(frequencies)
 frequencies_sorted = frequencies[sorted_idx]
 #print("wave_vector:\n", frequencies_sorted)
@@ -52,8 +58,7 @@ for index, row in df.iterrows():
     # (input) Real → (output) Fourier 
     fft_result = np.fft.fft(row.values)
     #print("fft_result:\n",fft_result)
-    magnitude = np.abs(fft_result)
-    ##magnitude = magnitude**2
+    magnitude = fft_result.imag
     #print("magnitude:\n",magnitude)
     magnitude_sorted = magnitude[sorted_idx]
     #print("magnitude_sorted:\n",magnitude_sorted)
@@ -85,7 +90,7 @@ fft_magnitude_df = pd.DataFrame(
 
 
 
-fft_magnitude_df.to_csv("fft_magnitudes_all.csv", index=False)
+fft_magnitude_df.to_csv("fft_Imaginary_all.csv", index=False)
 
 
 # ---- NEW: Plot q vs mean magnitude ----
@@ -97,24 +102,25 @@ mean_values = column_means.values
 
 plt.figure(figsize=(7, 5))
 plt.stem(q_values, mean_values, basefmt=" ")
-plt.title("Average FFT Magnitude vs Wave Vector (q)")
+plt.title("Average FFT Imaginary vs Wave Vector (q)")
 plt.xlabel("Wave Vector q (1/nm)")
-plt.ylabel("Mean Magnitude")
+plt.ylabel("Mean Imaginary")
 #plt.ylim(0, 50)
 plt.tight_layout()
-plt.savefig("fft_magnitude_mean_vs_q.png", dpi=300)
+plt.savefig("fft_Imaginary_mean_vs_q.png", dpi=300)
 plt.show()
 
 # Combine q_values and mean_values into two columns
 data_to_save = list(zip(q_values, mean_values))
 
 # Write to a text file
-with open("fft_mag_mean_vs_q.xvg", "w") as f:
+with open("fft_Img_mean_vs_q.xvg", "w") as f:
     f.write("# q (1/nm)    Mean Real\n")
     for q, mean in data_to_save:
         f.write(f"{q:.6f}    {mean:.6f}\n")
 
-print("Data saved to fft_real_mean_vs_q.txt")
+print("Data saved to fft_Img_mean_vs_q.txt")
+
 
 
 # ---------- Autocorrelation Analysis ----------
@@ -232,7 +238,7 @@ def exp_decay(x, y0, A, tau):
 # ---------- Relaxation time Analysis ----------
 
 
-num_segments = 1000
+num_segments = 500 # For Autocorrelation
 
 results = []
 
@@ -242,7 +248,7 @@ for col in fft_magnitude_df.columns:
     print("Processing column:", col)
     
     # Compute autocorrelation
-    A = autocorrelation0(data, num_segments)
+    A = autocorrelation0(data, num_data)
     lags = np.arange(len(A))
     
     # Fit exponential decay with initial guess
@@ -356,7 +362,6 @@ for index, row in df.iterrows():
 # Convert list of arrays into a new DataFrame
 fft_magnitude_df = pd.DataFrame(fft_magnitudes_sorted, columns=[f'q:{freq:.3f}' for freq in frequencies_sorted])
 #print("New DataFrame with sorted FFT magnitudes for each wave vector:\n", fft_magnitude_df)
-fft_magnitude_df.to_csv('fft_magnitude_results.csv', index=False)
 
 
 for column in fft_magnitude_df.columns:
@@ -380,17 +385,17 @@ plt.figure(figsize=(10, 6))
 for column in fft_magnitude_df.columns:
     plt.plot(fft_magnitude_df[column])
 
-plt.title('FFT Magnitude for All Wave vectors')
+plt.title('FFT Imaginary for All Wave vectors')
 plt.xlabel('Frame number')
-plt.ylabel('Magnitude')
+plt.ylabel('Imaginary')
 plt.legend(loc='upper right', fontsize='small')  # Show legend with column names
 plt.tight_layout()
 plt.savefig('fft_all_columns.png')
-plt.show()
+#plt.show()
 
 
-# Select columns starting from index 3
-selected_columns = fft_magnitude_df.columns[3:]
+
+selected_columns = fft_magnitude_df.columns
 
 # Create subplots
 n_cols = 2  # for example
@@ -413,22 +418,10 @@ for i, column in enumerate(selected_columns):
 for j in range(i + 1, len(axs)):
     fig.delaxes(axs[j])
 
-fig.suptitle('Magnitude Gaussian Distributions', fontsize=16)
+fig.suptitle('Imaginary Gaussian Distributions', fontsize=16)
 plt.tight_layout(rect=[0, 0, 1, 0.97])
-plt.savefig('gaussian_fits_selected_columns.png')
-plt.show()
-
-
-###########
-###########
-###########
-
-
-
-
-
-
-
+plt.savefig('gaussian_fits_selected_columns_Imaginary.png')
+#plt.show()
 
 
 
