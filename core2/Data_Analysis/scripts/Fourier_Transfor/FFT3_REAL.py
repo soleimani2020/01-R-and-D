@@ -24,12 +24,18 @@ from datetime import datetime
 
 # ---------- FFT Analysis ----------
 
-file_path = "mean_segment_df_V2.txt"  
+file_path = "../mean_segment_df_V2.txt"  
 num_columns = num_segments
 column_names = [f'Col{i+1}' for i in range(num_columns)]
 df = pd.read_csv(file_path, sep='\s+', header=None, names=column_names, usecols=range(num_columns))
 df = df.dropna()
-#print("df:\n", df)
+
+# Remove the first row
+df = df.iloc[1:]
+
+
+num_data = len(df)-1
+print(num_data)
 
 
 # Calculate wave_vector and sorting indices for sorting from lowest to highest frequency
@@ -233,7 +239,6 @@ def exp_decay(x, y0, A, tau):
 # ---------- Relaxation time Analysis ----------
 
 
-num_segments = 500
 
 results = []
 
@@ -243,7 +248,7 @@ for col in fft_magnitude_df.columns:
     print("Processing column:", col)
     
     # Compute autocorrelation
-    A = autocorrelation0(data, num_segments)
+    A = autocorrelation0(data, num_data)
     lags = np.arange(len(A))
     
     # Fit exponential decay with initial guess
