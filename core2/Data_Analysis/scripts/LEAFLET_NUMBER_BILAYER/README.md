@@ -63,3 +63,13 @@ lipid_resnames = ["DLPC"]     # Lipid types to analyze
 segment_width = 100           # Segment size in Angstroms (default: 100Å)
 headgroup_bead = "PO4"        # Headgroup atom for positioning
 tailgroup_bead = "C3B"        # Tailgroup atom for radius calculation
+
+
+# Analyze first 5 frames with default settings
+python cylindrical_analysis.py
+
+# Output includes:
+# - Lipid counts per segment and frame
+# - Average radii for each leaflet
+# - Time evolution plots
+# - Classification visualizations
