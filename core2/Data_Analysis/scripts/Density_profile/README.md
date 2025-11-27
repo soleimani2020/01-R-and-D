@@ -45,4 +45,4 @@ Max_Mesh_Num = 300    # 3D grid resolution
 NUMBER_FRAMES = 64    # Number of frames to analyze
 
 # Run the analysis
-python membrane_density_analysis.py
+python DP_3D.py
