@@ -1,1 +1,1 @@
-# Solutions to Deep-ML problems.
+# Deep-ML Solutions.
