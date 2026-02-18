@@ -53,3 +53,6 @@ matrix_singular = [
 inverse = inverse_2x2_matrix(matrix_singular)
 print(inverse)
 # Output: None
+
+
+Video Tutorial: https://www.youtube.com/watch?v=-fhFySMHPZk
