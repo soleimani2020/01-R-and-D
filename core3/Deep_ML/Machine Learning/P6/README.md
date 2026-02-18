@@ -35,3 +35,6 @@ col_means = calculate_matrix_mean(matrix, 'col')
 print(col_means)
 # Output: [4.0, 5.0, 6.0]
 
+
+Video Tutorial: https://www.youtube.com/watch?v=5KCS4qVczJ0
+
