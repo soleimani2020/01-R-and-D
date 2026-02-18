@@ -36,3 +36,6 @@ print(matrix)
 #   [14, 16, 18]
 # ]
 
+
+Video Tutorial: https://www.youtube.com/watch?v=kZXu5MPgaQg
+
