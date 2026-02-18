@@ -11,13 +11,7 @@ Write a Python function that calculates the **cosine similarity** between two ve
 - Cosine similarity measures the angle between two vectors and returns a value between **-1 and 1**.  
 - If either vector is a zero vector, return **0.0**.
 
-### Cosine Similarity Formula
 
-\[
-\text{cosine\_similarity} = \frac{v1 \cdot v2}{||v1|| \cdot ||v2||}
-\]
-
-where \(v1 \cdot v2\) is the dot product, and \(||v1||\), \(||v2||\) are vector norms.
 
 ---
 
