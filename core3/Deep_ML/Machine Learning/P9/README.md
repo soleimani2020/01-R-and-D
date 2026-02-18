@@ -56,3 +56,5 @@ E = [
 result = matrix_multiply(D, E)
 print(result)
 # Output: -1
+
+Video Tutorial: https://www.youtube.com/watch?v=LGiznhmpxp4
