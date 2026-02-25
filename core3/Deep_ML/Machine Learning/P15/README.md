@@ -71,38 +71,7 @@ Where:
 
 ---
 
-## 🛠 Implementation
 
-```python
-import numpy as np
-
-def linear_regression_gradient_descent(X: np.ndarray,
-                                       y: np.ndarray,
-                                       alpha: float,
-                                       iterations: int) -> np.ndarray:
-    """
-    Perform Linear Regression using Batch Gradient Descent.
-
-    Parameters:
-        X (np.ndarray): Feature matrix of shape (m, n)
-        y (np.ndarray): Target vector of shape (m,)
-        alpha (float): Learning rate
-        iterations (int): Number of gradient descent iterations
-
-    Returns:
-        np.ndarray: Learned weight vector of shape (n,)
-    """
-
-    m, n = X.shape
-    theta = np.zeros(n)  # Initialize weights to zero
-
-    for _ in range(iterations):
-        predictions = X @ theta              # (m,)
-        errors = predictions - y             # (m,)
-        gradient = (1/m) * (X.T @ errors)    # (n,)
-        theta = theta - alpha * gradient
-
-    return theta
 
 Video Tutorial: https://www.youtube.com/watch?v=U6Z-UjkJZjA&t=470s
 
