@@ -42,21 +42,7 @@ The factor 1/2 simplifies the gradient expression.
 
 ---
 
-## 🔄 Gradient Descent Update Rule
 
-Gradient of the loss function:
-
-∇L(θ) = (1/m) Xᵀ (Xθ − y)
-
-Update step:
-
-θ := θ − α ∇L(θ)
-
-Where:
-
-- α = learning rate  
-
----
 
 ## 📊 Input Specifications
 
