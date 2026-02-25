@@ -1,4 +1,4 @@
-# 📈 Linear Regression Using Gradient Descent (EASY)
+# 📈 Linear Regression Using Gradient Descent 
 
 **Difficulty:** Easy  
 **Category:** Machine Learning  
