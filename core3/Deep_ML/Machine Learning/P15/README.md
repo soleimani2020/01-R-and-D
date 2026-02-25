@@ -77,7 +77,7 @@ Video Tutorial: https://www.youtube.com/watch?v=U6Z-UjkJZjA&t=470s
 
 Video Tutorial: https://www.youtube.com/@NicholasRenotte/featured 
 
-Video Tutorial: https://www.youtube.com/watch?v=4b4MUYve_U8
+Video Tutorial: [https://www.youtube.com/watch?v=4b4MUYve_U8](https://www.youtube.com/watch?v=EfsjEOb596Q)
 
 
 
