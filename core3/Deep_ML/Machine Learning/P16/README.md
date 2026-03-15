@@ -1,6 +1,6 @@
-# Gradient Descent Variants with MSE Loss
+# 📉 Gradient Descent Variants with MSE Loss
 
-## Overview
+## 📖 Overview
 
 The **Gradient Descent Variants** project implements three common optimization algorithms used in machine learning to minimize prediction error.
 
@@ -10,42 +10,42 @@ This project is designed as a learning and portfolio example to illustrate how d
 
 ---
 
-## Features
+## ✨ Features
 
-* Implementation of three gradient descent variants
-* Mean Squared Error (MSE) loss function
-* Configurable learning rate and number of epochs
-* Support for mini-batch training
-* Modular and readable Python implementation
-* Simple interface for experimenting with optimization methods
+✔ Implementation of three gradient descent variants  
+✔ Mean Squared Error (MSE) loss function  
+✔ Configurable learning rate and number of epochs  
+✔ Support for mini-batch training  
+✔ Modular and readable Python implementation  
+✔ Simple interface for experimenting with optimization methods  
 
 ---
-## Concepts Demonstrated
+
+## 🧠 Concepts Demonstrated
 
 This project explores important machine learning concepts such as:
 
-* Gradient-Based Optimization
-* Mean Squared Error Loss
-* Batch vs Stochastic Training
-* Mini-Batch Learning
-* Parameter Updates in Iterative Algorithms
+• Gradient-Based Optimization  
+• Mean Squared Error Loss  
+• Batch vs Stochastic Training  
+• Mini-Batch Learning  
+• Parameter Updates in Iterative Algorithms  
 
 ---
 
-## Example Workflow
+## ⚙️ Example Workflow
 
-1. Load or generate training data
-2. Initialize model parameters
-3. Select the gradient descent method
-4. Train the model by minimizing MSE
-5. Observe parameter convergence over iterations
-
----
-
-## Technologies Used
-
-* Python
-* NumPy
+1️⃣ Load or generate training data  
+2️⃣ Initialize model parameters  
+3️⃣ Select the gradient descent method  
+4️⃣ Train the model by minimizing MSE  
+5️⃣ Observe parameter convergence over iterations  
 
 ---
 
+## 🛠 Technologies Used
+
+🐍 **Python**  
+📊 **NumPy**
+
+---
