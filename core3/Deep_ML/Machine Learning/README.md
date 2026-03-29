@@ -4,7 +4,7 @@ A structured collection of hands-on machine learning projects, organized by topi
 
 ---
 
-## 1. Linear Algebra (9/9)
+## 1. Linear Algebra (9)
 
 * **P1:** Matrix-Vector Dot Product
 * **P2:** Transpose of a Matrix
@@ -18,7 +18,7 @@ A structured collection of hands-on machine learning projects, organized by topi
 
 ---
 
-## 2. Probability and Statistics (3/5)
+## 2. Probability and Statistics (5)
 
 * **P10:** Poisson Distribution Probability Calculator
 * **P11:** Binomial Distribution Probability
@@ -28,7 +28,7 @@ A structured collection of hands-on machine learning projects, organized by topi
 
 ---
 
-## 3. Optimization Techniques (4/4)
+## 3. Optimization Techniques (4)
 
 * **P15:** Linear Regression Using Gradient Descent
 * **P16:** Gradient Descent Variants with MSE Loss
@@ -37,7 +37,7 @@ A structured collection of hands-on machine learning projects, organized by topi
 
 ---
 
-## 4. Model Evaluation (12/12)
+## 4. Model Evaluation (12)
 
 * **P19:** Confusion Matrix for Binary Classification
 * **P20:** Accuracy Score Calculation
@@ -54,7 +54,7 @@ A structured collection of hands-on machine learning projects, organized by topi
 
 ---
 
-## 5. Classification & Regression Techniques (1/7)
+## 5. Classification & Regression Techniques (7)
 
 * **P31:** Linear Regression Using Normal Equation
 * **P32:** Linear Regression Using Gradient Descent
@@ -66,7 +66,7 @@ A structured collection of hands-on machine learning projects, organized by topi
 
 ---
 
-## 6. Unsupervised Learning (0/3)
+## 6. Unsupervised Learning (3)
 
 * **P38:** KL Divergence Between Two Normal Distributions
 * **P39:** Principal Component Analysis (PCA)
@@ -74,7 +74,7 @@ A structured collection of hands-on machine learning projects, organized by topi
 
 ---
 
-## 7. Deep Learning (2/7)
+## 7. Deep Learning (7)
 
 * **P41:** Single Neuron Implementation
 * **P42:** Sigmoid Activation Function Exploration
