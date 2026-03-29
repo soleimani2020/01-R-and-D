@@ -1,6 +1,6 @@
 # 📚 Machine Learning Projects Roadmap
 
-A structured collection of hands-on machine learning projects, organized by topic. 
+A structured collection of hands-on machine learning projects, organized by topic for Building machine learning intuition by implementing everything from scratch.
 
 ---
 
@@ -110,8 +110,6 @@ A structured collection of hands-on machine learning projects, organized by topi
 * Matplotlib
 * Scikit-learn (for validation)
 
----
 
-## 📌 Goal
 
-Build machine learning intuition by implementing everything from scratch.
+
