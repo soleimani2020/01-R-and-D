@@ -1,6 +1,6 @@
 # 📚 Machine Learning Projects Roadmap
 
-A structured collection of hands-on machine learning projects, organized by topic. Each project is labeled sequentially (P1, P2, ...) for clarity and progression.
+A structured collection of hands-on machine learning projects, organized by topic. 
 
 ---
 
