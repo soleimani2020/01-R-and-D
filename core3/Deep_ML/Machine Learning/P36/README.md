@@ -31,69 +31,57 @@ AdaBoost is a foundational ensemble method that combines multiple **weak learner
 
 ## How AdaBoost Works ⚙️
 
-For each boosting round \( t = 1 \dots T \):
+For each boosting round $t = 1 \dots T$:
 
 ### 1️⃣ Initialize Sample Weights (first round only)
 
-All \( N \) samples start with equal importance:
+All $N$ samples start with equal importance:
 
-\[
-w_i^{(1)} = \frac{1}{N}, \quad i = 1, \dots, N
-\]
+$$ w_i^{(1)} = \frac{1}{N}, \quad i = 1, \dots, N $$
 
 ### 2️⃣ Train a Weak Learner (Decision Stump)
 
-Find the best stump (feature \( j \), threshold \( \theta \), polarity \( p \in \{-1, 1\} \)) that minimizes the **weighted error**.
+Find the best stump (feature $j$, threshold $\theta$, polarity $p \in \{-1, 1\}$) that minimizes the **weighted error**.
 
 ### 3️⃣ Compute Weighted Error
 
-\[
-\text{error}_t = \sum_{i=1}^{N} w_i^{(t)} \cdot \mathbf{1}\big(y_i \neq h_t(\mathbf{x}_i)\big)
-\]
+$$ \text{error}_t = \sum_{i=1}^{N} w_i^{(t)} \cdot \mathbf{1}\big(y_i \neq h_t(\mathbf{x}_i)\big) $$
 
 Where:
-- \( w_i^{(t)} \) = weight of sample \( i \) at round \( t \)
-- \( y_i \) = true label (\( \pm 1 \))
-- \( h_t(\mathbf{x}_i) \) = prediction of weak learner \( t \)
-- \( \mathbf{1}(\cdot) \) = indicator function
+- $w_i^{(t)}$ = weight of sample $i$ at round $t$
+- $y_i$ = true label ($\pm 1$)
+- $h_t(\mathbf{x}_i)$ = prediction of weak learner $t$
+- $\mathbf{1}(\cdot)$ = indicator function
 
 ### 4️⃣ Compute Learner Importance (Alpha)
 
-\[
-\alpha_t = \frac{1}{2} \ln\left(\frac{1 - \text{error}_t}{\text{error}_t}\right)
-\]
+$$ \alpha_t = \frac{1}{2} \ln\left(\frac{1 - \text{error}_t}{\text{error}_t}\right) $$
 
-- Lower error → higher \( \alpha \) → more influence in the final vote.
+- Lower error $\rightarrow$ higher $\alpha$ $\rightarrow$ more influence in the final vote.
 
 ### 5️⃣ Update Sample Weights
 
-\[
-w_i^{(t+1)} = w_i^{(t)} \, \exp\!\big(-\alpha_t \, y_i \, h_t(\mathbf{x}_i)\big)
-\]
+$$ w_i^{(t+1)} = w_i^{(t)} \, \exp\!\big(-\alpha_t \, y_i \, h_t(\mathbf{x}_i)\big) $$
 
 - Correctly classified samples get lower weight; misclassified get higher weight.
 
 ### 6️⃣ Normalize Weights
 
-\[
-w_i^{(t+1)} \leftarrow \frac{w_i^{(t+1)}}{\sum_{j=1}^{N} w_j^{(t+1)}}
-\]
+$$ w_i^{(t+1)} \leftarrow \frac{w_i^{(t+1)}}{\sum_{j=1}^{N} w_j^{(t+1)}} $$
 
 ### 7️⃣ Repeat
 
-Continue for \( T \) boosting rounds (`n_clf`).
+Continue for $T$ boosting rounds (`n_clf`).
 
 ---
 
 ## Final Strong Classifier 🏆
 
-The ensemble prediction for a new sample \( \mathbf{x} \) is:
+The ensemble prediction for a new sample $\mathbf{x}$ is:
 
-\[
-H(\mathbf{x}) = \text{sign}\!\left( \sum_{t=1}^{T} \alpha_t \, h_t(\mathbf{x}) \right)
-\]
+$$ H(\mathbf{x}) = \text{sign}\!\left( \sum_{t=1}^{T} \alpha_t \, h_t(\mathbf{x}) \right) $$
 
-Where `sign` returns `+1` or `-1`.
+Where `sign` returns $+1$ or $-1$.
 
 ---
 
