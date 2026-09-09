@@ -43,3 +43,6 @@ result = matrix_vector_dot(matrix, bad_vector)
 print(result)
 # Output: -1
 
+## Video Tutorial
+
+https://www.youtube.com/watch?v=hC_KoiW1qNQ&t=2s
