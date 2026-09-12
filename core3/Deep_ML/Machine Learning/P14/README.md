@@ -3,13 +3,13 @@
 **Difficulty:** Easy
 **Topic:** Statistics
 
-Write a Python function to calculate the **covariance matrix** for a set of features.
+Write a Python function to calculate the **covariance matrix** for a given set of vectors.
 
-Each inner list represents one feature and its observations.
+The input is a list of lists, where each inner list represents a feature and contains its observations.
 
 ## Formula
 
-For two variables \(X\) and \(Y\):
+The covariance between two features \(X\) and \(Y\) is:
 
 $$
 \operatorname{Cov}(X,Y)=
@@ -17,21 +17,32 @@ $$
 \sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})
 $$
 
+where:
 
-Output:
+* \(n\) = number of observations
+* \(\bar{x}\) = mean of feature \(X\)
+* \(\bar{y}\) = mean of feature \(Y\)
 
-```python
+The function should return the covariance matrix as a **list of lists**.
+
+## Example
+
+**Input:**
+
+```text
+[
+    [1, 2, 3],
+    [2, 4, 6]
+]
+```
+
+**Output:**
+
+```text
 [
     [1.0, 2.0],
     [2.0, 4.0]
 ]
 ```
 
-## Test Cases
-
-```python
-assert covariance_matrix([[1, 2, 3], [2, 4, 6]]) == [
-    [1.0, 2.0],
-    [2.0, 4.0]
-]
-```
+Include test cases to verify that the implementation works correctly.
