@@ -24,3 +24,4 @@ The result is rounded to **5 decimal places**.
 poisson_probability(3, 2)
 # 0.18045
 ```
+Video Tutorial: https://www.youtube.com/watch?v=bNwxV8OfNE8
