@@ -17,15 +17,6 @@ where:
 * `k` = number of successes
 * `p` = probability of success
 
-## Python Solution
-
-```python
-import math
-
-def binomial_probability(n, k, p):
-    val = math.comb(n, k) * p**k * (1 - p)**(n - k)
-    return round(val, 5)
-```
 
 ## Example
 
