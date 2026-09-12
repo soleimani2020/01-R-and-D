@@ -13,7 +13,8 @@ def descriptive_statistics(data):
     q1 = np.percentile(data, 25)
     q2 = np.percentile(data, 50)
     q3 = np.percentile(data, 75)
-    
+
+    # middle 50%
     iqr = q3 - q1
     
     return {
