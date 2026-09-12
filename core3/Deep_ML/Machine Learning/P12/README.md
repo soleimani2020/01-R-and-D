@@ -25,3 +25,4 @@ where:
 normal_pdf(0, 0, 1)
 # 0.39894
 ```
+Video Tutorial : https://www.youtube.com/watch?v=rzFX5NWojp0
