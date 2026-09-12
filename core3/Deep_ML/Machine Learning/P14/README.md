@@ -55,3 +55,5 @@ The diagonal elements of the covariance matrix represent the **variance of each 
 * Construct the covariance matrix.
 * Return the result as a list of lists.
 * Include test cases to verify the implementation.
+
+* Video Tutorial: https://www.youtube.com/watch?v=WBlnwvjfMtQ
