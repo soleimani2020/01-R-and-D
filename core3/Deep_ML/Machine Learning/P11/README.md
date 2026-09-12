@@ -33,3 +33,4 @@ def binomial_probability(n, k, p):
 binomial_probability(5, 2, 0.5)
 # 0.3125
 ```
+Video Tutorial: https://www.youtube.com/watch?v=B-RnkT_fbXI
