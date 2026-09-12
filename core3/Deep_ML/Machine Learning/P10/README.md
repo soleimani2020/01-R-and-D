@@ -16,15 +16,7 @@ where:
 
 The result is rounded to **5 decimal places**.
 
-## Python Solution
 
-```python
-import math
-
-def poisson_probability(k: int, lam: float) -> float:
-    probability = (math.exp(-lam) * lam**k) / math.factorial(k)
-    return round(probability, 5)
-```
 
 ## Example
 
