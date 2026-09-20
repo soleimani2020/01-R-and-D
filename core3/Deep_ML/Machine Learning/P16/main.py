@@ -1,65 +1,70 @@
-def gradient_descent(X, y, weights=None, learning_rate=0.01, n_epochs=100, batch_size=1, method='batch'):
-    """
-    Loop-based gradient descent for linear regression.
+import numpy as np
 
+def gradient_descent(X, y, weights, learning_rate, n_epochs, batch_size=1, method='batch'):
+    """
+    Perform gradient descent optimization.
+    
     Args:
-        X: Feature matrix of shape (m, n) (first column can be 1 for intercept)
-        y: Target vector of shape (m,)
-        weights: Initial weights, shape (n,)
-        learning_rate: Step size
-        n_epochs: Number of passes over the dataset
-        batch_size: Batch size for mini-batch
-        method: 'batch', 'stochastic', 'mini_batch'
-
+        X: Feature matrix of shape (m, n)
+        y: Target values of shape (m,)
+        weights: Initial weights of shape (n,)
+        learning_rate: Step size for gradient descent
+        n_epochs: Number of complete passes through the dataset
+        batch_size: Size of batches for mini-batch gradient descent (default: 1)
+        method: Type of gradient descent ('batch', 'stochastic', or 'mini_batch')
+    
     Returns:
-        Optimized weights (1D array)
+        Optimized weights
     """
-
-    m, n = X.shape
-    y = y.reshape(-1, 1)  # ensure column vector
-
+    # Your code here
+    m , n = X.shape 
+    y = y.reshape(-1,1) # (m,1)
+    
     if weights is None:
-        weights = np.zeros((n, 1))
+        weights = np.zeros((n,1))
     else:
-        weights = weights.reshape(-1, 1)
-
+        weights = weights.reshape(-1,1)
+    
+    
     for epoch in range(n_epochs):
-
-        if method == 'batch':
-            # Loop-based accumulation of gradients over all samples
-            grad_accum = np.zeros((n, 1))
+        if method == "batch":
+            yhat = X @ weights # (m,1) = (m,n) | (n,1)
+            error = yhat - y   # (m,1)
+            grad = (2/m) * (X.T @ error)   # (n,1) = (n,m) | ( m,1)
+            weights = weights - learning_rate * grad 
+            
+        elif method == "stochastic":
             for i in range(m):
-                xi = X[i].reshape(-1, 1)
-                yi = y[i]
-                error = (xi.T @ weights) - yi
-                grad_accum += 2 * error * xi
-            weights -= learning_rate * (1/m) * grad_accum
-
-        elif method == 'stochastic':
-            # Update weights for each sample individually
-            for i in range(m):
-                xi = X[i].reshape(-1, 1)
-                yi = y[i]
-                error = (xi.T @ weights) - yi
-                grad = 2 * error * xi
-                weights -= learning_rate * grad  # no division by m
-
-        elif method == 'mini_batch':
-            # Loop over batches
-            for i in range(0, m, batch_size):
-                X_batch = X[i:i+batch_size]
-                y_batch = y[i:i+batch_size]
-                batch_m = X_batch.shape[0]
-
-                grad_accum = np.zeros((n, 1))
-                for j in range(batch_m):
-                    xi = X_batch[j].reshape(-1, 1)
-                    yi = y_batch[j]
-                    error = (xi.T @ weights) - yi
-                    grad_accum += 2 * error * xi
-                weights -= learning_rate * (1/batch_m) * grad_accum
-
-        else:
-            raise ValueError("method must be 'batch', 'stochastic', or 'mini_batch'")
-
+                x_i = X[i].reshape(1,-1)
+                y_i = y[i]
+                error = x_i @ weights - y_i
+                grad = 2 * x_i.T * error
+                weights = weights - learning_rate * grad 
+                
+                
+        elif method == "mini_batch":
+            for i in range(0 , m , batch_size):
+                X_batch = X[i : i+batch_size]  #(b,1)
+                y_batch = y[i : i+batch_size]  #(b,1)
+                b = X_batch.shape[0]   # number of samples in a batch 
+                error = X_batch @ weights - y_batch
+                grad = (2/b) * (X_batch.T @ error)
+                weights = weights - learning_rate * grad
+                
     return weights.flatten()
+                
+                
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
