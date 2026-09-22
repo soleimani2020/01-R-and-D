@@ -228,7 +228,8 @@ X^T(Xw-y)
 
 ### Step 2: Soft Thresholding
 
-Then apply the soft-thresholding operator:
+Then apply the soft-thresholding operator (This operation shrinks large coefficients and sets sufficiently small coefficients exactly to zero.
+:
 
 ```math
 w^{(k+1)}
@@ -248,20 +249,7 @@ z+\tau, & z<-\tau
 
 
 
-### Example
 
-Example with:
-
-```text
-τ = 0.2
-```
-
-```text
-1.5  →  1.3
--0.8 → -0.6
-0.1  →  0.0
-```
-This operation shrinks large coefficients and sets sufficiently small coefficients exactly to zero.
 
 ---
 
