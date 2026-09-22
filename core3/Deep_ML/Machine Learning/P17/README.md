@@ -94,7 +94,6 @@ adam_optimizer(
 
 The function returns the optimized parameter values after the specified number of iterations.
 
----
 
 
 ---
