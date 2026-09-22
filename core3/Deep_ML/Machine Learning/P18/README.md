@@ -6,13 +6,6 @@ It demonstrates how to combine:
 - Gradient Descent (for MSE loss)
 - Proximal Operators (for L1 regularization)
 
----
-
-## 🚀 Features
-
-- Fully vectorized NumPy implementation  
-
-
 ```
 # 📌 Lasso Regression using ISTA (from Scratch)
 
