@@ -57,12 +57,14 @@ $$
 Finally, the parameters are updated as:
 
 $$
+
 x_t =
 x_{t-1}
 -
 \alpha
 \frac{\hat{m}_t}
 {\sqrt{\hat{v}_t}+\epsilon}
+
 $$
 
 where \(\alpha\) is the learning rate.
