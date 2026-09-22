@@ -239,11 +239,7 @@ S_{\eta\lambda}(z)
 where:
 
 ```math
-S_{\tau}(z)
-=
-\operatorname{sign}(z)
-\max(|z|-\tau,0)
-```
+S_{\tau}(z) = \mathrm{sign}(z)\,\max\left(|z|-\tau,\,0\right)
 
 This operation shrinks large coefficients and sets sufficiently small coefficients exactly to zero.
 
