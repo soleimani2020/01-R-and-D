@@ -12,37 +12,50 @@ It demonstrates how to combine:
 
 - Fully vectorized NumPy implementation  
 
-## 📘 Ridge and Lasso Regression
 
-Both **Ridge** and **Lasso** are regularized versions of linear regression.
+```
+# 📌 Lasso Regression using ISTA (from Scratch)
 
-For ordinary linear regression:
+This project implements **Lasso Regression (L1 Regularization)** from scratch using **NumPy**, based on the **ISTA (Iterative Shrinkage-Thresholding Algorithm)**.
+
+It demonstrates how to combine:
+
+* Gradient Descent for the MSE loss
+* Proximal Operators for L1 regularization
+* Soft-thresholding for sparse feature selection
+
+---
+
+## 📘 Linear Regression
+
+For linear regression:
 
 ```math
 \hat{y} = Xw + b
 ```
 
-and the Mean Squared Error loss is:
+The Mean Squared Error loss is:
 
 ```math
-\mathcal{L}_{\text{MSE}}(w)
+\mathcal{L}_{\mathrm{MSE}}(w)
 =
 \frac{1}{2n}
 \|Xw-y\|_2^2
 ```
 
-Regularization adds a penalty term to reduce overfitting and control the size of the coefficients.
+Regularization adds a penalty term to control the size of the model coefficients and reduce overfitting.
 
 ---
 
-## 🔵 Ridge Regression — L2 Regularization
+# 🔵 Ridge Regression — L2 Regularization
 
-Ridge adds the squared magnitude of the coefficients:
+Ridge Regression adds an **L2 penalty** to the ordinary regression loss.
 
 ```math
-\mathcal{L}_{\text{Ridge}}(w)
+\mathcal{L}_{\mathrm{Ridge}}(w)
 =
-\frac{1}{2n}\|Xw-y\|_2^2
+\frac{1}{2n}
+\|Xw-y\|_2^2
 +
 \lambda \|w\|_2^2
 ```
@@ -55,10 +68,10 @@ where:
 \sum_{j=1}^{p} w_j^2
 ```
 
-So explicitly:
+Therefore:
 
 ```math
-\mathcal{L}_{\text{Ridge}}
+\mathcal{L}_{\mathrm{Ridge}}
 =
 \frac{1}{2n}
 \sum_{i=1}^{n}
@@ -68,11 +81,12 @@ So explicitly:
 \sum_{j=1}^{p} w_j^2
 ```
 
-The parameter `λ` controls the strength of the regularization.
+Here:
 
-* If `λ = 0`, Ridge becomes ordinary linear regression.
-* If `λ` increases, large coefficients are penalized more strongly.
-* Ridge usually makes coefficients smaller, but not exactly zero.
+* `λ` controls the strength of regularization.
+* Larger `λ` means stronger penalization.
+* Ridge shrinks large coefficients toward zero.
+* Ridge usually does **not** make coefficients exactly zero.
 
 Example:
 
@@ -84,7 +98,9 @@ After Ridge:
 w = [3.1, -2.2, 0.4, 1.2]
 ```
 
-### Ridge Gradient
+---
+
+## Ridge Gradient
 
 The derivative of the L2 penalty is:
 
@@ -92,7 +108,7 @@ The derivative of the L2 penalty is:
 \nabla_w \|w\|_2^2 = 2w
 ```
 
-Therefore:
+So the gradient becomes:
 
 ```math
 \nabla_w \mathcal{L}
@@ -102,18 +118,19 @@ Therefore:
 2\lambda w
 ```
 
-Because Ridge is differentiable, it can be optimized directly using gradient descent.
+Because the Ridge objective is differentiable, standard Gradient Descent can be used.
 
 ---
 
-## 🟣 Lasso Regression — L1 Regularization
+# 🟣 Lasso Regression — L1 Regularization
 
-Lasso adds the absolute values of the coefficients:
+Lasso Regression adds an **L1 penalty**:
 
 ```math
-\mathcal{L}_{\text{Lasso}}(w)
+\mathcal{L}_{\mathrm{Lasso}}(w)
 =
-\frac{1}{2n}\|Xw-y\|_2^2
+\frac{1}{2n}
+\|Xw-y\|_2^2
 +
 \lambda \|w\|_1
 ```
@@ -126,10 +143,10 @@ where:
 \sum_{j=1}^{p}|w_j|
 ```
 
-So explicitly:
+Therefore:
 
 ```math
-\mathcal{L}_{\text{Lasso}}
+\mathcal{L}_{\mathrm{Lasso}}
 =
 \frac{1}{2n}
 \sum_{i=1}^{n}
@@ -139,7 +156,7 @@ So explicitly:
 \sum_{j=1}^{p}|w_j|
 ```
 
-Unlike Ridge, Lasso can force coefficients to become exactly zero.
+Unlike Ridge, Lasso can force some coefficients to become exactly zero.
 
 Example:
 
@@ -151,13 +168,13 @@ After Lasso:
 w = [3.8, -2.5, 0.0, 0.0]
 ```
 
-This means Lasso can perform automatic feature selection.
+This means Lasso performs a form of **automatic feature selection**.
 
 ---
 
-## ⚠️ Why Lasso Needs a Different Optimization Method
+# ⚠️ Why Lasso Is Different
 
-The L1 penalty contains:
+The L1 penalty contains the absolute value:
 
 ```math
 |w|
@@ -169,42 +186,64 @@ Its derivative is:
 \frac{d|w|}{dw}
 =
 \begin{cases}
-1 & w > 0 \\
--1 & w < 0
+1, & w>0 \\
+-1, & w<0
 \end{cases}
 ```
 
-but at:
+At:
 
 ```math
-w = 0
+w=0
 ```
 
 the ordinary derivative is not defined.
 
-For this reason, algorithms such as **ISTA** are commonly used.
+Because of this non-smooth point, Lasso is commonly optimized using methods such as:
+
+* ISTA
+* FISTA
+* Coordinate Descent
 
 ---
 
-## 🔁 ISTA
+# 🔁 ISTA
 
-ISTA separates the Lasso objective into two parts:
+ISTA stands for:
+
+**Iterative Shrinkage-Thresholding Algorithm**
+
+It separates the Lasso objective into two parts:
 
 ```math
 f(w)
 =
-\underbrace{
-\frac{1}{2n}\|Xw-y\|_2^2
-}_{\text{smooth MSE}}
+\frac{1}{2n}
+\|Xw-y\|_2^2
 +
-\underbrace{
 \lambda\|w\|_1
-}_{\text{non-smooth L1 penalty}}
 ```
 
-### Step 1: Gradient Descent
+The first term is smooth:
 
-First, perform a gradient step on the MSE part:
+```math
+\frac{1}{2n}
+\|Xw-y\|_2^2
+```
+
+The second term is non-smooth:
+
+```math
+\lambda\|w\|_1
+```
+
+ISTA handles these two parts separately.
+
+---
+
+## Step 1 — Gradient Descent
+
+First, take a Gradient Descent step using only the MSE part:
 
 ```math
 z
@@ -212,24 +251,29 @@ z
 w^{(k)}
 -
 \eta
-\nabla \mathcal{L}_{\text{MSE}}
+\nabla\mathcal{L}_{\mathrm{MSE}}
 \left(w^{(k)}\right)
 ```
 
-with:
+where:
 
 ```math
-\nabla \mathcal{L}_{\text{MSE}}
+\nabla\mathcal{L}_{\mathrm{MSE}}
 =
 \frac{1}{n}
 X^T(Xw-y)
 ```
 
+Here:
 
-### Step 2: Soft Thresholding
+* `η` is the learning rate
+* `z` is the intermediate parameter vector
 
-Then apply the soft-thresholding operator (This operation shrinks large coefficients and sets sufficiently small coefficients exactly to zero.
-:
+---
+
+## Step 2 — Soft Thresholding
+
+After the gradient step, apply the soft-thresholding operator:
 
 ```math
 w^{(k+1)}
@@ -237,42 +281,86 @@ w^{(k+1)}
 S_{\eta\lambda}(z)
 ```
 
-where:
+The soft-thresholding operator is:
 
 ```math
-S_{\tau}(z) =
+S_{\tau}(z)
+=
 \begin{cases}
 z-\tau, & z>\tau \\
 0, & |z|\le\tau \\
 z+\tau, & z<-\tau
 \end{cases}
+```
 
+where:
 
+```math
+\tau = \eta\lambda
+```
 
+This step shrinks the coefficients toward zero.
 
+If a coefficient is already small enough, it becomes exactly zero.
 
 ---
 
-## 🆚 Ridge vs. Lasso
+## Example of Soft Thresholding
 
-| Property                         | Ridge            | Lasso                     |   |   |
-| -------------------------------- | ---------------- | ------------------------- | - | - |
-| Regularization                   | L2               | L1                        |   |   |
-| Penalty                          | `λ Σ w²`         | `λ Σ                      | w | ` |
-| Shrinks coefficients             | ✅ Yes            | ✅ Yes                     |   |   |
-| Coefficients become exactly zero | Usually no       | ✅ Yes                     |   |   |
-| Feature selection                | ❌ No             | ✅ Yes                     |   |   |
-| Objective smooth                 | ✅ Yes            | ❌ No at zero              |   |   |
-| Common optimization              | Gradient Descent | ISTA / Coordinate Descent |   |   |
+Suppose:
+
+```text
+τ = 0.2
+```
+
+Then:
+
+```text
+1.5  →  1.3
+-0.8 → -0.6
+0.1  →  0.0
+```
+
+So the operator performs both:
+
+* coefficient shrinkage
+* automatic feature selection
+
+---
+
+# 🆚 Ridge vs. Lasso
+
+| Property             | Ridge            | Lasso                     |
+| -------------------- | ---------------- | ------------------------- |
+| Regularization       | L2               | L1                        |
+| Penalty              | `λ Σ w²`         | `λ Σ \|w\|`               |
+| Shrinks coefficients | ✅ Yes            | ✅ Yes                     |
+| Produces exact zeros | Usually no       | ✅ Yes                     |
+| Feature selection    | ❌ No             | ✅ Yes                     |
+| Objective smooth     | ✅ Yes            | ❌ Not at zero             |
+| Common optimization  | Gradient Descent | ISTA / Coordinate Descent |
+
+---
+
+# 🧠 Key Idea
 
 A simple way to remember the difference:
 
 ```text
-Ridge  → Shrink coefficients
-Lasso  → Shrink coefficients + Select features
+Ridge
+↓
+Shrink coefficients
 ```
 
-In this project, ISTA combines:
+```text
+Lasso
+↓
+Shrink coefficients
++
+Set some coefficients exactly to zero
+```
+
+For ISTA:
 
 ```text
 Gradient Descent
@@ -281,3 +369,40 @@ Soft Thresholding
         =
 Lasso Optimization
 ```
+
+---
+
+## 🚀 Features
+
+* Fully vectorized NumPy implementation
+* Lasso Regression from scratch
+* ISTA optimization
+* Soft-thresholding operator
+* L1 regularization
+* Automatic feature selection
+* No machine-learning library required
+
+---
+
+## 📦 Requirements
+
+```bash
+pip install numpy
+```
+
+---
+
+## 🎯 Main Concepts
+
+This project demonstrates:
+
+* Linear Regression
+* Mean Squared Error
+* Ridge Regression
+* Lasso Regression
+* L1 and L2 Regularization
+* Gradient Descent
+* Proximal Gradient Methods
+* Soft Thresholding
+* Sparse Models
+* Feature Selection
