@@ -8,7 +8,7 @@ Adam is a gradient-based optimization algorithm widely used in **machine learnin
 
 The optimizer automatically adapts the effective learning rate for each parameter.
 
-in Adam, When the gradient is small (close to zero), Adam can take relatively larger steps to move efficiently through flat regions. When the gradient is large, it reduces the effective step size, helping to prevent overshooting the minimum.
+In Adam, When the gradient is small (close to zero), Adam can take relatively larger steps to move efficiently through flat regions. When the gradient is large, it reduces the effective step size, helping to prevent overshooting the minimum.
 
 ---
 
