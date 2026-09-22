@@ -225,6 +225,7 @@ with:
 X^T(Xw-y)
 ```
 
+
 ### Step 2: Soft Thresholding
 
 Then apply the soft-thresholding operator:
