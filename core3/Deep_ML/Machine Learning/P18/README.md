@@ -237,6 +237,8 @@ S_{\eta\lambda}(z)
 ```
 
 where:
+
+```markdown
 ```math
 S_{\tau}(z) =
 \begin{cases}
