@@ -249,7 +249,6 @@ z+\tau, & z<-\tau
 
 
 
-This operation shrinks large coefficients and sets sufficiently small coefficients exactly to zero.
 
 Example with:
 
@@ -262,6 +261,7 @@ Example with:
 -0.8 → -0.6
 0.1  →  0.0
 ```
+This operation shrinks large coefficients and sets sufficiently small coefficients exactly to zero.
 
 ---
 
