@@ -1,3 +1,149 @@
+## 🔁 ISTA Algorithm for Lasso Regression
+
+ISTA minimizes the Lasso objective:
+
+```math
+L(w,b)
+=
+\frac{1}{n}
+\sum_{i=1}^{n}
+(y_i-\hat{y}_i)^2
++
+\alpha
+\sum_{j=1}^{p}|w_j|
+```
+
+with:
+
+```math
+\hat{y} = Xw + b
+```
+
+### Algorithm
+
+1. Initialize the parameters:
+
+```math
+w = 0
+```
+
+```math
+b = 0
+```
+
+2. Compute the predictions:
+
+```math
+\hat{y} = Xw + b
+```
+
+3. Compute the prediction error:
+
+```math
+e = \hat{y} - y
+```
+
+4. Compute the gradient with respect to the weights:
+
+```math
+\frac{\partial L}{\partial w}
+=
+\frac{2}{n}
+X^T e
+```
+
+5. Take a gradient descent step:
+
+```math
+w_{\text{temp}}
+=
+w
+-
+\eta
+\frac{\partial L}{\partial w}
+```
+
+6. Apply soft-thresholding:
+
+```math
+w_{\text{new}}
+=
+S_{\eta\alpha}(w_{\text{temp}})
+```
+
+where:
+
+```math
+S_{\tau}(z)
+=
+\begin{cases}
+z-\tau, & z>\tau \\
+0, & -\tau \le z \le \tau \\
+z+\tau, & z<-\tau
+\end{cases}
+```
+
+and:
+
+```math
+\tau = \eta\alpha
+```
+
+7. Compute the gradient with respect to the bias:
+
+```math
+\frac{\partial L}{\partial b}
+=
+\frac{2}{n}
+\sum_{i=1}^{n} e_i
+```
+
+8. Update the bias:
+
+```math
+b_{\text{new}}
+=
+b
+-
+\eta
+\frac{\partial L}{\partial b}
+```
+
+9. Check convergence:
+
+```math
+\|w_{\text{new}} - w\| < \text{tol}
+```
+
+If the condition is satisfied, stop.
+
+Otherwise, repeat the steps until `max_iter` is reached.
+
+### Summary
+
+```text
+Initialize w and b
+       ↓
+Compute predictions
+       ↓
+Compute error
+       ↓
+Compute dL/dw
+       ↓
+Gradient step
+       ↓
+Soft thresholding
+       ↓
+Compute dL/db
+       ↓
+Update bias
+       ↓
+Check convergence
+       ↓
+Repeat
+```
+
+
 # 📌 Lasso Regression using ISTA (from Scratch)
 
 This project implements **Lasso Regression (L1 Regularization)** from scratch using **NumPy**, based on the **ISTA (Iterative Shrinkage-Thresholding Algorithm)**.
