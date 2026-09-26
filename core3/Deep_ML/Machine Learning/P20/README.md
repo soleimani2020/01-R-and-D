@@ -47,13 +47,5 @@ $$
 83.33\%
 $$
 
-## Requirements
-
-- Python 3
-- NumPy
-
-Install NumPy with:
-
-```bash
 pip install numpy
 ```
