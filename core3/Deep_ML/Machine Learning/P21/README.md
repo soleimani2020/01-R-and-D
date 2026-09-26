@@ -53,23 +53,4 @@ So the precision is:
 75%
 ```
 
-## How the NumPy Conditions Work
 
-True positives are found using:
-
-```python
-(y_true == 1) & (y_pred == 1)
-```
-
-False positives are found using:
-
-```python
-(y_true == 0) & (y_pred == 1)
-```
-
-`np.sum()` then counts the number of `True` values.
-
-
-```bash
-pip install numpy
-```
