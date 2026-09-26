@@ -14,10 +14,21 @@ and returns the classification accuracy as a `float`.
 ## Formula
 
 $$
+\text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+$$
+
+Equivalently:
+
+$$
 \text{Accuracy} = \frac{\text{Number of Correct Predictions}}{\text{Total Number of Predictions}}
 $$
 
+where:
 
+- **TP** = True Positives
+- **TN** = True Negatives
+- **FP** = False Positives
+- **FN** = False Negatives
 
 ## Explanation
 
@@ -47,5 +58,8 @@ $$
 83.33\%
 $$
 
+## Installation
+
+```bash
 pip install numpy
 ```
