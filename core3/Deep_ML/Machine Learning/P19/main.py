@@ -13,17 +13,24 @@ def confusion_matrix(data):
 
 
 def confusion_matrix(data):
-    tp = tn = fp = fn = 0
-    
+    TN = TP = FN = FP = 0
+
     for y_true, y_pred in data:
-        if y_true == 1 and y_pred == 1:
-            tp += 1
+        if y_true == 0 and y_pred == 0:
+            TN += 1
+
+        elif y_true == 1 and y_pred == 1:
+            TP += 1
+
         elif y_true == 1 and y_pred == 0:
-            fn += 1
+            FN += 1
+
         elif y_true == 0 and y_pred == 1:
-            fp += 1
-        elif y_true == 0 and y_pred == 0:
-            tn += 1
-    
-    return [[tp, fn],
-            [fp, tn]]
+            FP += 1
+
+    return [[TP, FN],
+            [FP, TN]]
+            
+
+data = [[1, 1], [1, 0], [0, 1], [0, 0], [0, 1]]
+print(confusion_matrix(data))
