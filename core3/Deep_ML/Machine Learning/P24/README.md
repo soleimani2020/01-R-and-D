@@ -41,8 +41,4 @@ $$
 - $\hat{y}_i$ = predicted value
 - $\bar{y}$ = mean of the actual values
 
-
-
-```bash
-pip install numpy
-```
+``
