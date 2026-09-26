@@ -17,28 +17,34 @@ that calculates the **R-squared** value from:
 
 The result should be rounded to **three decimal places**.
 
-## Formula
+Calculate R-squared for Regression Analysis
+
+Formula
 
 $$
-R^2 = 1 - \frac{SS_{res}}{SS_{tot}}
+R^2 = 1 - \frac{SS_{\text{fit}}}{SS_{\text{mean}}}
 $$
 
 where:
 
 $$
-SS_{res} = \sum_{i=1}^{n}(y_i - \hat{y}_i)^2
+SS_{\text{fit}} = \sum_{i=1}^{n}(y_i-\hat{y}_i)^2
 $$
 
 and:
 
 $$
-SS_{tot} = \sum_{i=1}^{n}(y_i - \bar{y})^2
+SS_{\text{mean}} = \sum_{i=1}^{n}(y_i-\bar{y})^2
 $$
 
-- $SS_{res}$ = residual sum of squares
-- $SS_{tot}$ = total sum of squares
-- $y_i$ = actual value
-- $\hat{y}_i$ = predicted value
-- $\bar{y}$ = mean of the actual values
+So:
 
-``
+SS(fit) measures the squared error of the regression model.
+
+SS(mean) measures the squared error we would get if we predicted the mean of y for every observation.
+
+Therefore:
+
+$$
+R^2 = 1 - \frac{\text{Error of fitted model}}{\text{Error of mean model}}
+$$
