@@ -1,5 +1,7 @@
 # Linear Regression Using the Normal Equation
 
+Video Tutoril: https://www.youtube.com/watch?v=1kkVEcmhkL8
+
 We assume the linear regression model
 
 $$
@@ -179,6 +181,6 @@ $$
 \theta = (X^TX)^{-1}X^Ty
 $$
 
-Video Tutoril: https://www.youtube.com/watch?v=1kkVEcmhkL8
+
 
 This formula directly gives the least-squares coefficients of the linear regression model.
