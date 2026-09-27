@@ -26,17 +26,13 @@ $$
 We minimize the sum of squared errors:
 
 $$
-J(\theta)
-=
-\|y - X\theta\|^2
+J(\theta) = \lVert y - X\theta \rVert^2
 $$
 
 Using the definition of the squared norm:
 
 $$
-J(\theta)
-=
-(y - X\theta)^T(y - X\theta)
+J(\theta) = (y - X\theta)^T (y - X\theta)
 $$
 
 ---
@@ -46,15 +42,7 @@ $$
 Expand the product:
 
 $$
-J(\theta)
-=
-y^Ty
--
-y^TX\theta
--
-\theta^TX^Ty
-+
-\theta^TX^TX\theta
+J(\theta) = y^Ty - y^TX\theta - \theta^TX^Ty + \theta^TX^TX\theta
 $$
 
 Since
@@ -66,21 +54,13 @@ $$
 is a scalar, its transpose is equal to itself:
 
 $$
-y^TX\theta
-=
-\theta^TX^Ty
+y^TX\theta = \theta^TX^Ty
 $$
 
 Therefore:
 
 $$
-J(\theta)
-=
-y^Ty
--
-2\theta^TX^Ty
-+
-\theta^TX^TX\theta
+J(\theta) = y^Ty - 2\theta^TX^Ty + \theta^TX^TX\theta
 $$
 
 ---
@@ -90,9 +70,7 @@ $$
 For the first term:
 
 $$
-\frac{\partial}{\partial \theta}(y^Ty)
-=
-0
+\frac{\partial}{\partial \theta}(y^Ty) = 0
 $$
 
 because it does not contain $\theta$.
@@ -100,23 +78,13 @@ because it does not contain $\theta$.
 For the second term:
 
 $$
-\frac{\partial}{\partial \theta}
-\left(
--2\theta^TX^Ty
-\right)
-=
--2X^Ty
+\frac{\partial}{\partial \theta} \left( -2\theta^TX^Ty \right) = -2X^Ty
 $$
 
 For the third term:
 
 $$
-\frac{\partial}{\partial \theta}
-\left(
-\theta^TX^TX\theta
-\right)
-=
-2X^TX\theta
+\frac{\partial}{\partial \theta} \left( \theta^TX^TX\theta \right) = 2X^TX\theta
 $$
 
 because $X^TX$ is symmetric.
@@ -124,11 +92,7 @@ because $X^TX$ is symmetric.
 Therefore:
 
 $$
-\nabla_\theta J
-=
--2X^Ty
-+
-2X^TX\theta
+\nabla_\theta J = -2X^Ty + 2X^TX\theta
 $$
 
 ---
@@ -144,29 +108,19 @@ $$
 So:
 
 $$
--2X^Ty
-+
-2X^TX\theta
-=
-0
+-2X^Ty + 2X^TX\theta = 0
 $$
 
 Divide both sides by $2$:
 
 $$
--X^Ty
-+
-X^TX\theta
-=
-0
+-X^Ty + X^TX\theta = 0
 $$
 
 Rearrange:
 
 $$
-X^TX\theta
-=
-X^Ty
+X^TX\theta = X^Ty
 $$
 
 This is the **normal equation**.
@@ -178,9 +132,7 @@ This is the **normal equation**.
 We have
 
 $$
-X^TX\theta
-=
-X^Ty
+X^TX\theta = X^Ty
 $$
 
 Multiply both sides from the left by
@@ -192,25 +144,19 @@ $$
 to get
 
 $$
-(X^TX)^{-1}(X^TX)\theta
-=
-(X^TX)^{-1}X^Ty
+(X^TX)^{-1}(X^TX)\theta = (X^TX)^{-1}X^Ty
 $$
 
 Since
 
 $$
-(X^TX)^{-1}(X^TX)
-=
-I
+(X^TX)^{-1}(X^TX) = I
 $$
 
 we obtain
 
 $$
-I\theta
-=
-(X^TX)^{-1}X^Ty
+I\theta = (X^TX)^{-1}X^Ty
 $$
 
 and because
@@ -222,11 +168,7 @@ $$
 the final result is
 
 $$
-\boxed{
-\theta
-=
-(X^TX)^{-1}X^Ty
-}
+\theta = (X^TX)^{-1}X^Ty
 $$
 
 ---
@@ -234,11 +176,7 @@ $$
 ## Final Formula
 
 $$
-\boxed{
-\theta
-=
-(X^TX)^{-1}X^Ty
-}
+\theta = (X^TX)^{-1}X^Ty
 $$
 
 This formula directly gives the least-squares coefficients of the linear regression model.
