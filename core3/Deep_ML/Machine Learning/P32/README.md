@@ -4,6 +4,8 @@
 
 Video Tutorial : https://www.youtube.com/watch?v=Q7vT0--5VII
 
+Video Tutorial2 : https://www.youtube.com/watch?v=N_RQj4OL1mg
+
 This task implements a **deterministic Pegasos algorithm** for training a binary Support Vector Machine (SVM) with either:
 
 - a **linear kernel**
