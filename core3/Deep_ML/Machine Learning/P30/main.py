@@ -18,7 +18,7 @@ def predict_logistic(X: np.ndarray, weights: np.ndarray, bias: float) -> np.ndar
 	# Sigmoid probability
 	sigma = 1 / (1 + np.exp(-z))
 	
-	#ans = (sigma >= 0.5).astype(int)
+	#np.where(condition, value_if_true, value_if_false)
 	ans = np.where(sigma >= 0.5, 1, 0)
 
 	return ans 
