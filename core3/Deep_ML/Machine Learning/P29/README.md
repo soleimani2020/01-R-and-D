@@ -1,41 +1,77 @@
 # Linear Regression Using the Normal Equation
 
-## Formula
-
-The normal equation is:
-
-$$
-\theta = (X^T X)^{-1} X^T y
-$$
-
-where:
-
-- $X$ = feature matrix
-- $y$ = target vector
-- $X^T$ = transpose of $X$
-- $\theta$ = regression coefficients
-
-# Linear Regression Using the Normal Equation
-
-We start with
+We assume the linear regression model
 
 $$
 \hat{y} = X\theta
 $$
 
-and minimize the squared error:
+where:
+
+- $X$ is the feature matrix
+- $\theta$ is the vector of coefficients
+- $y$ is the true target
+- $\hat{y}$ is the predicted target
+
+---
+
+## 1. Define the error
+
+The residual is
 
 $$
-J(\theta) = \|y - X\theta\|^2
+e = y - X\theta
 $$
 
-Expand:
+We minimize the sum of squared errors:
 
 $$
 J(\theta)
 =
-(y-X\theta)^T(y-X\theta)
+\|y - X\theta\|^2
 $$
+
+Using the definition of the squared norm:
+
+$$
+J(\theta)
+=
+(y - X\theta)^T(y - X\theta)
+$$
+
+---
+
+## 2. Expand the cost function
+
+Expand the product:
+
+$$
+J(\theta)
+=
+y^Ty
+-
+y^TX\theta
+-
+\theta^TX^Ty
++
+\theta^TX^TX\theta
+$$
+
+Since
+
+$$
+y^TX\theta
+$$
+
+is a scalar, its transpose is equal to itself:
+
+$$
+y^TX\theta
+=
+\theta^TX^Ty
+$$
+
+Therefore:
 
 $$
 J(\theta)
@@ -47,7 +83,45 @@ y^Ty
 \theta^TX^TX\theta
 $$
 
-Differentiate with respect to $\theta$:
+---
+
+## 3. Differentiate with respect to $\theta$
+
+For the first term:
+
+$$
+\frac{\partial}{\partial \theta}(y^Ty)
+=
+0
+$$
+
+because it does not contain $\theta$.
+
+For the second term:
+
+$$
+\frac{\partial}{\partial \theta}
+\left(
+-2\theta^TX^Ty
+\right)
+=
+-2X^Ty
+$$
+
+For the third term:
+
+$$
+\frac{\partial}{\partial \theta}
+\left(
+\theta^TX^TX\theta
+\right)
+=
+2X^TX\theta
+$$
+
+because $X^TX$ is symmetric.
+
+Therefore:
 
 $$
 \nabla_\theta J
@@ -57,34 +131,114 @@ $$
 2X^TX\theta
 $$
 
-At the minimum:
+---
+
+## 4. Find the minimum
+
+At the minimum of the cost function:
 
 $$
 \nabla_\theta J = 0
 $$
 
-Therefore:
+So:
 
 $$
--2X^Ty + 2X^TX\theta = 0
+-2X^Ty
++
+2X^TX\theta
+=
+0
 $$
 
-$$
-X^TX\theta = X^Ty
-$$
-
-Multiply by $(X^TX)^{-1}$:
+Divide both sides by $2$:
 
 $$
-(X^TX)^{-1}X^TX\theta
+-X^Ty
++
+X^TX\theta
+=
+0
+$$
+
+Rearrange:
+
+$$
+X^TX\theta
+=
+X^Ty
+$$
+
+This is the **normal equation**.
+
+---
+
+## 5. Solve for $\theta$
+
+We have
+
+$$
+X^TX\theta
+=
+X^Ty
+$$
+
+Multiply both sides from the left by
+
+$$
+(X^TX)^{-1}
+$$
+
+to get
+
+$$
+(X^TX)^{-1}(X^TX)\theta
 =
 (X^TX)^{-1}X^Ty
 $$
 
-Hence:
+Since
+
+$$
+(X^TX)^{-1}(X^TX)
+=
+I
+$$
+
+we obtain
+
+$$
+I\theta
+=
+(X^TX)^{-1}X^Ty
+$$
+
+and because
+
+$$
+I\theta = \theta
+$$
+
+the final result is
 
 $$
 \boxed{
-\theta = (X^TX)^{-1}X^Ty
+\theta
+=
+(X^TX)^{-1}X^Ty
 }
 $$
+
+---
+
+## Final Formula
+
+$$
+\boxed{
+\theta
+=
+(X^TX)^{-1}X^Ty
+}
+$$
+
+This formula directly gives the least-squares coefficients of the linear regression model.
