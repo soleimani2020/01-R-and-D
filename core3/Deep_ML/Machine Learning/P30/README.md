@@ -190,25 +190,6 @@ This loss penalizes incorrect confident predictions more strongly than uncertain
 
 ---
 
-## Python Example
-
-```python
-import numpy as np
-
-
-def sigmoid(z):
-    return 1 / (1 + np.exp(-z))
-
-
-def predict_proba(X, w, b):
-    return sigmoid(X @ w + b)
-
-
-def predict(X, w, b, threshold=0.5):
-    return (predict_proba(X, w, b) >= threshold).astype(int)
-```
-
----
 
 ## Summary
 
