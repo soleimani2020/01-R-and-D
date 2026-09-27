@@ -43,6 +43,18 @@ The linear score $z$ can be any real number, so it is not yet a probability.
 
 ---
 
+## Model
+
+The model first calculates a linear score:
+
+$$
+z = Xw + b
+$$
+
+Then it converts this score into a probability using the sigmoid function.
+
+---
+
 ## Sigmoid Function
 
 To convert the linear score $z$ into a probability between `0` and `1`, we apply the **sigmoid function**:
@@ -105,3 +117,125 @@ Equivalently:
 ```text
 Probability >= 0.5  -> Class 1
 Probability <  0.5  -> Class 0
+```
+
+---
+
+## Decision Boundary
+
+Because the sigmoid function is monotonic and $\sigma(0) = 0.5$, the threshold rule can also be written directly in terms of the linear score:
+
+$$
+\hat{y}
+=
+\begin{cases}
+1, & \text{if } Xw + b \ge 0 \\
+0, & \text{if } Xw + b < 0
+\end{cases}
+$$
+
+The boundary where the model is exactly undecided is:
+
+$$
+Xw + b = 0
+$$
+
+This is called the **decision boundary**.
+
+---
+
+## Log-Odds Interpretation
+
+Logistic regression can also be interpreted using odds.
+
+The odds of class `1` are:
+
+$$
+\frac{P(y=1 \mid X)}{P(y=0 \mid X)}
+=
+\frac{p}{1-p}
+$$
+
+Taking the log gives:
+
+$$
+\log\left(\frac{p}{1-p}\right) = Xw + b
+$$
+
+So logistic regression models the **log-odds** of the positive class as a linear function of the input features.
+
+---
+
+## Training Objective
+
+The parameters $w$ and $b$ are learned by minimizing the **binary cross-entropy loss**, also called the log loss:
+
+$$
+J(w,b)
+=
+-\frac{1}{N}
+\sum_{i=1}^{N}
+\left[
+y_i \log(p_i) + (1-y_i)\log(1-p_i)
+\right]
+$$
+
+where:
+
+$$
+p_i = \sigma(x_i w + b)
+$$
+
+This loss penalizes incorrect confident predictions more strongly than uncertain incorrect predictions.
+
+---
+
+## Python Example
+
+```python
+import numpy as np
+
+
+def sigmoid(z):
+    return 1 / (1 + np.exp(-z))
+
+
+def predict_proba(X, w, b):
+    return sigmoid(X @ w + b)
+
+
+def predict(X, w, b, threshold=0.5):
+    return (predict_proba(X, w, b) >= threshold).astype(int)
+```
+
+---
+
+## Summary
+
+1. Compute the linear score:
+
+$$
+z = Xw + b
+$$
+
+2. Convert it into a probability using the sigmoid function:
+
+$$
+p = \sigma(z)
+$$
+
+3. Apply a threshold, usually `0.5`:
+
+```text
+p >= 0.5  -> predict class 1
+p <  0.5  -> predict class 0
+```
+
+4. Equivalently, because sigmoid is monotonic:
+
+```text
+z >= 0  -> predict class 1
+z <  0  -> predict class 0
+```
+
+Logistic regression is therefore a simple, interpretable linear classifier that outputs probabilities and makes binary decisions through a threshold.
