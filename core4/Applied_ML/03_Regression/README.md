@@ -1,24 +1,35 @@
-# Regression and Price Prediction
+# Loan Repayment Classification
 
 ## Overview
-Develop regression models to predict continuous numerical values.
+This project explores supervised machine learning methods for predicting loan repayment outcomes. The goal is to classify borrowers based on whether they are likely to repay their loans.
 
 ## Objectives
-- Understand and prepare the data.
-- Explore suitable machine learning methods.
-- Train and evaluate a model.
-- Document results and conclusions.
+- Explore and preprocess the dataset.
+- Analyze features associated with loan repayment.
+- Train and evaluate classification models.
+- Use a confusion matrix to analyze classification errors.
+- Investigate the misclassification of risky loans as safe.
 
-## Libraries
-- pandas
-- numpy
-- scikit-learn
-- matplotlib
+## Methods
+- Data preprocessing and feature engineering
+- Supervised classification
+- Model evaluation and validation
+- Confusion matrix analysis
+
+## Technologies
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Scikit-learn
 
 ## Project Structure
-- `README.md`: Project documentation.
-- `main.py`: Python implementation.
-- `project.ipynb`: Interactive Jupyter Notebook.
+```text
+03_Loan_Repayment_Classification/
+├── README.md
+├── main.py
+└── project.ipynb
+```
 
 ## Status
-Project setup created. Implementation and results will be added later.
+Work in progress.
