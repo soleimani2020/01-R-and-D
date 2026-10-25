@@ -1,23 +1,37 @@
-# Deep Learning with Neural Networks
+# Exploratory Data Analysis and Statistics with Python
 
 ## Overview
-Build and evaluate neural networks for supervised learning tasks.
+This project explores datasets using statistical analysis and data visualization to identify patterns, understand distributions, detect outliers, and investigate relationships between variables.
 
 ## Objectives
-- Understand and prepare the data.
-- Explore suitable machine learning methods.
-- Train and evaluate a model.
-- Document results and conclusions.
+- Load, clean, and explore datasets.
+- Calculate descriptive statistics.
+- Analyze distributions and correlations.
+- Identify outliers and missing values.
+- Visualize data to communicate key findings.
 
-## Libraries
-- numpy
-- tensorflow
-- scikit-learn
+## Methods
+- Descriptive statistics
+- Exploratory data analysis (EDA)
+- Correlation analysis
+- Data visualization
+- Statistical interpretation
+
+## Technologies
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- SciPy
 
 ## Project Structure
-- `README.md`: Project documentation.
-- `main.py`: Python implementation.
-- `project.ipynb`: Interactive Jupyter Notebook.
+```text
+04_Exploratory_Data_Analysis_with_Python/
+├── README.md
+├── main.py
+└── project.ipynb
+```
 
 ## Status
-Project setup created. Implementation and results will be added later.
+Work in progress.
