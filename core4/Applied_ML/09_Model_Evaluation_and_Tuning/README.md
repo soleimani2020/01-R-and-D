@@ -1,23 +1,38 @@
-# Model Evaluation and Hyperparameter Tuning
+# Clustering and Mixed Classification with Scikit-learn
 
 ## Overview
-Compare models, perform cross-validation, and optimize hyperparameters.
+This project explores unsupervised learning techniques for grouping data into clusters. It compares K-Means clustering, Hierarchical Agglomerative Clustering (HAC), and a mixed classification approach that combines the strengths of both methods.
 
 ## Objectives
-- Understand and prepare the data.
-- Explore suitable machine learning methods.
-- Train and evaluate a model.
-- Document results and conclusions.
+- Explore and prepare data for clustering.
+- Apply K-Means clustering.
+- Perform hierarchical agglomerative clustering.
+- Visualize hierarchical relationships using dendrograms.
+- Explore mixed classification by combining hierarchical clustering and K-Means.
+- Compare clustering results and evaluate cluster quality.
 
-## Libraries
-- pandas
-- scikit-learn
-- matplotlib
+## Methods
+- Unsupervised learning
+- K-Means clustering
+- Hierarchical Agglomerative Clustering (HAC)
+- Dendrogram visualization
+- Mixed clustering
+- Cluster evaluation
+
+## Technologies
+- Python
+- NumPy
+- Pandas
+- Matplotlib
+- SciPy
+- Scikit-learn
 
 ## Project Structure
-- `README.md`: Project documentation.
-- `main.py`: Python implementation.
-- `project.ipynb`: Interactive Jupyter Notebook.
+```text
+09_Clustering_with_Scikit_Learn/
+├── README.md
+└── project.ipynb
+```
 
 ## Status
-Project setup created. Implementation and results will be added later.
+Work in progress.
