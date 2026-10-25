@@ -1,23 +1,39 @@
-# Machine Learning Classification
+# Image Classification with Convolutional Neural Networks (CNNs)
 
 ## Overview
-Build classification models and evaluate their performance on labeled datasets.
+This project explores image classification using **Convolutional Neural Networks (CNNs)**, a deep learning approach designed to identify patterns and features in images.
 
 ## Objectives
-- Understand and prepare the data.
-- Explore suitable machine learning methods.
-- Train and evaluate a model.
-- Document results and conclusions.
+- Prepare and preprocess image datasets.
+- Build and train a CNN model for image classification.
+- Evaluate model performance using appropriate classification metrics.
+- Visualize training progress and model predictions.
 
-## Libraries
-- pandas
-- scikit-learn
-- matplotlib
+## Methods
+- Image preprocessing and normalization
+- Convolutional and pooling layers
+- Model training and validation
+- Performance evaluation
+
+## Technologies
+- Python
+- TensorFlow / Keras
+- NumPy
+- Matplotlib
+- Scikit-learn
 
 ## Project Structure
-- `README.md`: Project documentation.
-- `main.py`: Python implementation.
-- `project.ipynb`: Interactive Jupyter Notebook.
+```text
+02_CNN_Image_Classification/
+├── README.md
+├── main.py
+└── project.ipynb
+```
+
+## How to Run
+1. Install the required libraries.
+2. Open `project.ipynb` in Jupyter Notebook, or run `main.py`.
+3. Follow the notebook to explore data preprocessing, model training, and evaluation.
 
 ## Status
-Project setup created. Implementation and results will be added later.
+Completed.
