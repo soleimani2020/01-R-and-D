@@ -1,4 +1,4 @@
-Project 04: Exploratory Data Analysis and Statistics with Python
+# Project 04: Exploratory Data Analysis and Statistics with Python
 
 ## 📌 Project Overview
 
