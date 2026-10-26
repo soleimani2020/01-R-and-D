@@ -1,4 +1,4 @@
-# Project 07: Time Series Forecasting
+# Project 07: Time Series Analysis and Forecasting
 
 > 📈 **Time Series Analysis** · 🔮 **Predictive Modeling** · 📊 **Statistical Forecasting** · 🤖 **Machine Learning**
 
