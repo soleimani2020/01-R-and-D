@@ -1,4 +1,4 @@
-# 03_House Price Prediction with Regression
+# Project 03_House Price Prediction with Regression
 
 ## 🔍 Overview
 This project applies **supervised machine learning regression techniques** to predict house sale prices based on property characteristics. Using the Ames Housing dataset, the project explores data preprocessing, feature engineering, neural network modeling, and performance evaluation.
