@@ -1,8 +1,4 @@
-```markdown
 # Project 02: Image Classification with Convolutional Neural Networks (CNNs)
-
-> **Deep Learning · Computer Vision · Image Classification**
-
 ---
 
 ## 📌 Project Overview
