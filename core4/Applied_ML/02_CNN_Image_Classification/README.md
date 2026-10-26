@@ -1,79 +1,158 @@
 # Project 02: Image Classification with Convolutional Neural Networks (CNNs)
 
+> 🖼️ **Computer Vision** · 🧠 **Deep Learning** · 🔍 **Image Recognition** · 🤖 **Convolutional Neural Networks**
+
+---
 
 ## 📌 Project Overview
 
-This project investigates the application of **Convolutional Neural Networks (CNNs)** to image classification.
+Image classification is a fundamental task in computer vision that involves assigning predefined categories to images based on their visual content.
 
-The goal is to develop a deep learning workflow that learns visual patterns and hierarchical features from images to classify them into predefined categories.
+This project explores the development of a deep learning model using **Convolutional Neural Networks (CNNs)** to classify images into multiple categories. CNNs are particularly effective for image analysis because they learn spatial features such as edges, textures, shapes, and increasingly complex visual patterns directly from image data.
 
-The project explores image preprocessing, CNN architecture design, model training, performance evaluation, and visualization of classification results.
+The project uses TensorFlow and Keras to build, train, and evaluate a CNN-based image classification model. The workflow includes image preprocessing, model architecture design, training optimization, performance evaluation, and visualization of predictions.
 
-### 🎯 Main Goal
+The project also explores techniques intended to improve generalization and reduce overfitting, including batch normalization, dropout, data augmentation, and early stopping.
 
-Develop and evaluate a CNN-based image classification model and investigate its ability to recognize visual patterns and generalize to unseen images.
+---
+
+## 🎯 Main Goal
+
+Develop and evaluate a CNN-based model capable of classifying images into multiple categories by learning meaningful visual representations from image data.
 
 ---
 
 ## 🎯 Project Objectives
 
-- 🖼️ **Dataset Preparation** — Load, explore, and preprocess image data for model training.
-- 🧹 **Image Preprocessing** — Normalize pixel values and prepare image tensors for neural network input.
-- 🧠 **Model Development** — Build a CNN architecture using TensorFlow and Keras.
-- ⚙️ **Model Training** — Train the network using appropriate optimization and loss functions.
-- 📊 **Performance Evaluation** — Assess classification performance using suitable metrics.
-- 📈 **Training Visualization** — Visualize training and validation loss and accuracy.
-- 🔍 **Prediction Analysis** — Examine model predictions and identify potential classification errors.
-- 🛡️ **Generalization Analysis** — Investigate overfitting and evaluate performance on unseen data.
+- 🖼️ **Image Preprocessing:** Prepare image data through normalization and appropriate formatting.
+- 🔢 **Label Encoding:** Represent target classes in a format compatible with the selected loss function.
+- 🧠 **CNN Architecture:** Build a neural network using convolutional and pooling layers.
+- 🔍 **Feature Extraction:** Learn spatial representations from image pixels.
+- ⚙️ **Model Optimization:** Train the network using an appropriate optimizer and loss function.
+- 🛡️ **Regularization:** Investigate dropout, batch normalization, and data augmentation.
+- 📉 **Training Monitoring:** Track training and validation loss and accuracy.
+- 📏 **Performance Evaluation:** Evaluate classification performance on unseen images.
+- 📊 **Visualization:** Analyze training curves, predictions, and classification errors.
+- 🔬 **Model Interpretation:** Explore techniques such as Grad-CAM or occlusion sensitivity when appropriate.
 
 ---
 
 ## 🧭 Methodology
 
-The project follows a structured deep learning workflow:
-
-| Step | Stage | Description |
-|:---:|---|---|
-| **01** | 🖼️ Dataset Preparation | Load the image dataset and examine its structure, classes, and image dimensions. |
-| **02** | 🧹 Image Preprocessing | Normalize pixel values and prepare images and labels for training. |
-| **03** | 🧠 CNN Architecture | Define convolutional, pooling, and classification layers. |
-| **04** | ⚙️ Model Training | Train the CNN using a suitable optimizer and classification loss function. |
-| **05** | 📊 Model Evaluation | Evaluate the trained model on validation or test data using appropriate metrics. |
-| **06** | 📈 Training Visualization | Plot training and validation loss and accuracy to monitor learning behavior. |
-| **07** | 🔍 Prediction Analysis | Compare predicted classes with true labels and inspect classification errors. |
-| **08** | 🛡️ Generalization Analysis | Assess overfitting and examine the model's performance on unseen images. |
+| Step | Description | Purpose |
+|---|---|---|
+| 1. Data Loading | Load the image dataset and corresponding labels | Establish the training and evaluation data |
+| 2. Preprocessing | Normalize pixel values and prepare class labels | Make the data suitable for neural network training |
+| 3. Data Augmentation | Apply suitable transformations to training images | Improve robustness and generalization |
+| 4. CNN Architecture | Define convolutional, activation, pooling, and dense layers | Learn increasingly complex visual features |
+| 5. Model Compilation | Select an optimizer, loss function, and evaluation metrics | Configure the training process |
+| 6. Model Training | Train the network using mini-batches over multiple epochs | Learn image-to-class mappings |
+| 7. Regularization | Apply techniques such as dropout and batch normalization | Help control overfitting |
+| 8. Training Monitoring | Track loss and accuracy across training and validation data | Assess convergence and generalization |
+| 9. Model Evaluation | Evaluate performance on held-out test images | Measure predictive performance |
+| 10. Error Analysis | Examine incorrect predictions and class-specific performance | Identify model limitations |
 
 ---
 
 ## 🧠 CNN Architecture
 
-Convolutional Neural Networks are designed to learn spatial features from image data.
+A Convolutional Neural Network learns spatial features through successive layers.
 
-The main architectural components include:
-
-| Component | Function |
+| Layer | Function |
 |---|---|
-| 🔎 Convolutional Layers | Extract local visual patterns such as edges, textures, and shapes. |
-| 🔽 Pooling Layers | Reduce spatial dimensions while retaining important features. |
-| ⚖️ Batch Normalization | Help stabilize and accelerate training, when included in the architecture. |
-| 🎯 Dropout | Reduce overfitting by randomly deactivating units during training, when used. |
-| 🧩 Dense Layers | Combine extracted features for classification. |
-| 📊 Output Layer | Produce class scores or probabilities for the target categories. |
+| Convolutional Layer | Applies learnable filters to detect local visual patterns |
+| Activation Function | Introduces nonlinearity, commonly using ReLU |
+| Max Pooling | Reduces spatial dimensions while retaining prominent activations |
+| Batch Normalization | Normalizes intermediate activations during training |
+| Dropout | Randomly deactivates selected units during training to help reduce overfitting |
+| Flatten or Global Pooling | Converts spatial feature maps into a representation suitable for classification |
+| Dense Layer | Combines learned features to produce class predictions |
+| Softmax Output | Produces a probability distribution over mutually exclusive classes |
 
-> **Initial strategy:** Establish a reliable baseline CNN before introducing more complex architectures or additional optimization techniques.
+The final architecture should be adapted to the dataset size, image resolution, number of classes, and available computational resources.
+
+---
+
+## 🗂️ Dataset
+
+The project uses an image dataset containing labeled examples for supervised classification.
+
+For a CIFAR-100 implementation, the dataset contains **100 image classes**, with small color images of size **32 × 32 pixels**.
+
+Potential preprocessing steps include:
+
+- Normalizing pixel values to a suitable numerical range.
+- Preparing labels for categorical classification.
+- Creating a validation set from the training data.
+- Applying augmentation to training images where appropriate.
+- Keeping the test set separate from model training and hyperparameter tuning.
+
+Data preprocessing and augmentation should be applied consistently with the requirements of the chosen architecture.
+
+---
+
+## 🛡️ Regularization and Generalization
+
+Deep neural networks can overfit their training data, particularly when model capacity is large relative to the available training examples.
+
+Potential strategies include:
+
+- **Data Augmentation:** Generate transformed training images to expose the model to additional visual variations.
+- **Dropout:** Reduce reliance on specific neural network units.
+- **Batch Normalization:** Help stabilize intermediate activations during training.
+- **Early Stopping:** Stop training when validation performance no longer improves according to the chosen criterion.
+- **Architecture Selection:** Balance model complexity with dataset size and computational cost.
+
+These techniques can improve generalization, but their effectiveness should be verified experimentally.
+
+---
+
+## 📏 Model Evaluation
+
+Classification performance can be evaluated using several complementary metrics.
+
+| Metric | Description |
+|---|---|
+| Accuracy | Proportion of images assigned the correct class |
+| Training Loss | Measures the model's objective on training data |
+| Validation Loss | Helps monitor generalization during model development |
+| Precision | Measures the proportion of predicted class assignments that are correct |
+| Recall | Measures the proportion of actual class instances correctly identified |
+| F1-Score | Combines precision and recall |
+| Confusion Matrix | Shows how often examples from each class are assigned to other classes |
+
+For a dataset with many classes, per-class metrics and confusion matrices can help reveal which categories are difficult to distinguish.
+
+The final performance assessment should use a held-out test set that was not used for model selection.
+
+---
+
+## 🔬 Model Interpretation
+
+Beyond overall accuracy, visualization can help investigate what the model learns and where it makes mistakes.
+
+Potential techniques include:
+
+- **Prediction Visualization:** Display images alongside predicted and actual labels.
+- **Confusion Matrix:** Identify frequently confused classes.
+- **Grad-CAM:** Highlight image regions that contribute to a selected class prediction, when compatible with the architecture.
+- **Occlusion Sensitivity:** Examine how predictions change when image regions are masked.
+
+These methods can provide useful diagnostic evidence, but their outputs should not be interpreted as definitive explanations of the model's internal reasoning.
 
 ---
 
 ## 🛠️ Technologies & Tools
 
-| Technology | Application |
+| Category | Technologies |
 |---|---|
-| 🐍 **Python** | Main programming language |
-| 🧠 **TensorFlow / Keras** | CNN development and model training |
-| 🔢 **NumPy** | Numerical computations and array operations |
-| 📈 **Matplotlib** | Visualization of training progress and predictions |
-| 🤖 **scikit-learn** | Classification metrics and performance evaluation |
-| 📓 **Jupyter Notebook** | Interactive development, experiments, and documentation |
+| Programming Language | Python |
+| Deep Learning Framework | TensorFlow, Keras |
+| Numerical Computing | NumPy |
+| Data Analysis | Pandas |
+| Visualization | Matplotlib, Seaborn |
+| Model Evaluation | Scikit-learn |
+| Development Environment | Jupyter Notebook |
 
 ---
 
@@ -81,44 +160,44 @@ The main architectural components include:
 
 ```text
 02_CNN_Image_Classification/
-├── 📄 README.md
-├── 🐍 main.py
-└── 📓 project.ipynb
+│
+├── README.md
+├── project.ipynb
+│
+├── figures/               # Training curves and evaluation plots
+├── models/                # Saved model files, if included
+└── results/               # Evaluation outputs, if included
 ```
 
-- **`README.md`** — Project overview, objectives, methodology, and documentation.
-- **`main.py`** — Python script for the main implementation.
-- **`project.ipynb`** — Interactive notebook for experiments, visualizations, and analysis.
+The folder structure can be adapted to the final implementation. Large datasets and model files do not necessarily need to be included in the repository.
 
 ---
 
 ## 🚀 Expected Outcomes
 
-The project aims to establish a reproducible workflow for image classification using CNNs.
+The project aims to produce:
 
-Key outcomes include:
+- A working CNN architecture for multiclass image classification.
+- A reproducible image preprocessing and training workflow.
+- Training and validation curves for monitoring model performance.
+- Quantitative evaluation on held-out test data.
+- Visualization of predictions and classification errors.
+- An assessment of overfitting, generalization, and potential improvements.
 
-- ✅ A trained CNN model for classifying images into predefined categories.
-- 📊 Quantitative evaluation of classification performance.
-- 📈 Visualization of training and validation behavior.
-- 🔍 Analysis of predictions and classification errors.
-- 🛡️ An assessment of generalization and potential overfitting.
+Actual performance should be reported from the trained model rather than assumed in advance.
 
 ---
 
 ## 🔬 Scientific Motivation
 
-Images contain spatial patterns and hierarchical visual features that can be difficult to represent using manually designed features alone.
+CNNs have played an important role in modern computer vision by enabling neural networks to learn hierarchical spatial representations directly from images.
 
-**Convolutional Neural Networks provide a data-driven approach to learning these representations directly from image data.** By combining convolutional feature extraction with supervised learning, CNNs can learn increasingly complex patterns and use them to distinguish between image categories.
+Their ability to combine local feature extraction with nonlinear transformations makes them useful for recognizing increasingly complex visual patterns.
 
-This project provides practical experience with a fundamental deep learning architecture and a structured approach to developing, evaluating, and interpreting image classification models.
+This project provides practical experience with deep learning, model optimization, regularization, and evaluation while illustrating the challenges of building reliable image classification systems.
 
 ---
 
-### 📌 Project Focus
+## 📌 Project Focus
 
-**Image data → Preprocessing → CNN architecture → Model training → Classification → Performance and generalization analysis**
-```
-
-**Before publishing:** The description assumes that your project uses TensorFlow/Keras and includes the listed CNN components and evaluation steps. Keep only the methods that are actually implemented in your notebook, and update the project status to match your current progress.
+**Image Data → Preprocessing → CNN Architecture → Training and Optimization → Evaluation → Error Analysis → Model Interpretation**
