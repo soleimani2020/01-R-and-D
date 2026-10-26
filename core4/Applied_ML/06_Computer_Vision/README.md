@@ -116,4 +116,4 @@ This project develops practical experience with image data and computer vision w
 ### 📌 Project Focus
 
 **Image data → Preprocessing → Visual feature analysis → Computer vision methods → Evaluation → Visualization → Interpretation**
-```
+
