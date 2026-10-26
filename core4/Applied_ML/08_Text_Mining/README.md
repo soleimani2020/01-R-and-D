@@ -6,179 +6,86 @@
 
 ## 📌 Project Overview
 
-Political speeches provide valuable material for studying language, communication strategies, public priorities, and political discourse.
+Political speeches provide valuable material for investigating language, communication strategies, public priorities, and political discourse.
 
-This project applies text mining and Natural Language Processing (NLP) techniques to analyze political speeches and investigate the sentiment, themes, and linguistic patterns expressed in political communication.
+This project applies **text mining and Natural Language Processing (NLP)** techniques to analyze political speeches and explore sentiment, recurring themes, and linguistic patterns in political communication.
 
-The workflow may include text preprocessing, exploratory text analysis, sentiment classification, keyword extraction, and comparisons across speakers, political parties, or time periods.
+The workflow covers text preprocessing, exploratory text analysis, sentiment estimation, keyword extraction, and comparative analysis across speakers, political parties, or time periods, depending on the available dataset.
 
-The aim is to transform unstructured textual data into interpretable analytical results while recognizing the limitations of automated sentiment analysis in politically sensitive contexts.
+By transforming unstructured text into structured representations and interpretable visualizations, the project investigates how computational methods can support the systematic analysis of political language.
 
----
+Particular attention is given to the limitations of automated sentiment analysis and the importance of interpreting results within their linguistic, historical, and political contexts.
 
-## 🎯 Main Goal
+### 🎯 Main Goal
 
-Develop a text analysis pipeline to investigate sentiment and linguistic patterns in political speeches, using computational methods to explore how language varies across speakers, topics, and time periods.
+Develop a reproducible NLP pipeline to investigate sentiment, recurring themes, and linguistic patterns in political speeches, exploring how language varies across speakers, groups, and time periods.
 
 ---
 
 ## 🎯 Project Objectives
 
-- 📚 **Text Collection:** Load and organize a dataset of political speeches with relevant metadata.
-- 🧹 **Text Preprocessing:** Clean and normalize textual data for analysis.
-- 🔤 **Tokenization:** Split speeches into words or other meaningful linguistic units.
-- 🛑 **Stopword Removal:** Reduce the influence of common words when appropriate for the task.
-- 📊 **Exploratory Text Analysis:** Identify frequent words, phrases, and recurring expressions.
-- 💬 **Sentiment Analysis:** Estimate the positive, negative, or neutral tone of speech segments.
-- 🧩 **Topic Exploration:** Investigate recurring themes and subjects discussed in speeches.
-- 🔎 **Comparative Analysis:** Explore linguistic differences between speakers, parties, or time periods when the data supports such comparisons.
-- 📈 **Visualization:** Communicate findings through charts, word-frequency plots, and sentiment summaries.
-- ⚖️ **Critical Interpretation:** Examine the limitations of automated sentiment tools and avoid treating sentiment scores as direct measures of political ideology or intent.
+- 📚 **Text Collection** — Load and organize political speeches alongside relevant metadata.
+- 🧹 **Text Preprocessing** — Clean and normalize text while preserving information relevant to the analysis.
+- 🔤 **Tokenization** — Divide speeches into words, sentences, or other meaningful linguistic units.
+- 🛑 **Stopword Handling** — Reduce the influence of common words when appropriate for the analytical objective.
+- 📊 **Exploratory Text Mining** — Identify frequent words, recurring expressions, and distinctive terms.
+- 💬 **Sentiment Analysis** — Estimate the positive, negative, or neutral polarity of speeches or text segments.
+- 🧩 **Topic Exploration** — Investigate recurring themes and subjects using keywords or topic modeling, where appropriate.
+- 🔎 **Comparative Analysis** — Examine linguistic patterns across speakers, parties, or time periods when supported by the data.
+- 📈 **Data Visualization** — Communicate findings through frequency plots, sentiment distributions, and comparative visualizations.
+- ⚖️ **Critical Interpretation** — Evaluate methodological limitations and distinguish computational estimates from substantive political conclusions.
 
 ---
 
 ## 🧭 Methodology
 
-| Step | Description | Purpose |
-|---|---|---|
-| 1. Data Collection | Load speeches and available metadata | Establish the corpus for analysis |
-| 2. Data Inspection | Examine text length, missing values, language, and metadata | Understand data quality and coverage |
-| 3. Text Preprocessing | Normalize text and handle punctuation and other formatting | Prepare text for analysis |
-| 4. Tokenization | Divide text into words, sentences, or selected linguistic units | Enable quantitative text analysis |
-| 5. Exploratory Analysis | Calculate word frequencies and identify recurring phrases | Understand prominent linguistic patterns |
-| 6. Sentiment Analysis | Apply a suitable lexicon-based or model-based method | Estimate the emotional polarity of the text |
-| 7. Topic Exploration | Investigate recurring themes using keywords or topic models, if appropriate | Explore the subjects discussed |
-| 8. Comparative Analysis | Compare results across speakers, parties, or periods where justified | Investigate similarities and differences |
-| 9. Visualization | Plot word frequencies, sentiment distributions, and temporal patterns | Communicate analytical findings |
-| 10. Interpretation | Evaluate results in context and document limitations | Avoid unsupported conclusions |
+The project follows a structured text analysis workflow, progressing from corpus preparation to contextual interpretation.
+
+| Step | Stage | Description |
+|:---:|---|---|
+| **01** | 📚 Data Collection | Load political speeches and available metadata, such as speaker, date, or political affiliation. |
+| **02** | 🔎 Data Inspection | Examine text length, missing values, language, metadata completeness, and corpus composition. |
+| **03** | 🧹 Text Preprocessing | Normalize text and handle punctuation, formatting, and other inconsistencies as required. |
+| **04** | 🔤 Tokenization | Divide speeches into words, sentences, or other relevant linguistic units. |
+| **05** | 📊 Exploratory Text Analysis | Calculate word frequencies and identify recurring terms and phrases. |
+| **06** | 💬 Sentiment Analysis | Apply an appropriate lexicon-based or model-based method to estimate sentiment polarity. |
+| **07** | 🧩 Topic Exploration | Investigate recurring themes using keywords, document representations, or topic models, where appropriate. |
+| **08** | 🔎 Comparative Analysis | Compare linguistic patterns across speakers, groups, or time periods when justified by the dataset. |
+| **09** | 📈 Visualization | Visualize word frequencies, sentiment distributions, and temporal or group-level patterns. |
+| **10** | 🔬 Interpretation | Evaluate findings in context, document limitations, and distinguish observations from interpretations. |
 
 ---
 
 ## 🧹 Text Preprocessing
 
-Depending on the language and structure of the corpus, preprocessing may involve:
+Text preprocessing transforms raw speech transcripts into representations suitable for computational analysis.
 
-- **Text normalization:** Standardize text encoding and formatting.
-- **Lowercasing:** Convert text to lowercase when case distinctions are not relevant.
-- **Tokenization:** Split speeches into words or sentences.
-- **Punctuation handling:** Remove or preserve punctuation according to the analytical objective.
-- **Stopword handling:** Remove common words when doing so improves the analysis.
-- **Lemmatization:** Reduce inflected words to their base dictionary forms.
-- **N-gram extraction:** Identify recurring word sequences, such as two-word or three-word expressions.
+### 🔑 Potential Preprocessing Techniques
 
-Preprocessing choices should be documented because they can affect both word-frequency results and sentiment estimates.
+| Technique | Purpose |
+|---|---|
+| 🧹 **Text Normalization** | Standardize text encoding, whitespace, and formatting. |
+| 🔡 **Lowercasing** | Standardize capitalization when case distinctions are not analytically important. |
+| 🔤 **Tokenization** | Divide text into words, sentences, or other meaningful units. |
+| ✏️ **Punctuation Handling** | Remove or preserve punctuation according to the analytical objective. |
+| 🛑 **Stopword Handling** | Remove common words when they interfere with the intended analysis. |
+| 🌱 **Stemming or Lemmatization** | Reduce related word forms to stems or dictionary forms, depending on the method. |
+| 🔗 **N-gram Extraction** | Identify recurring sequences of two or more words. |
+
+Preprocessing decisions should reflect the research question. For example, removing negation words can distort sentiment analysis, while removing common words may be useful for identifying prominent topics.
 
 ---
 
 ## 💬 Sentiment Analysis
 
-Sentiment analysis aims to estimate the emotional polarity expressed in text.
+Sentiment analysis estimates the emotional polarity expressed in text. Depending on the dataset and research objective, this can involve lexicon-based scoring, supervised classification, or pretrained language models.
 
-Depending on the language, dataset, and project scope, possible approaches include:
+### 🔑 Potential Approaches
 
 | Approach | Example Tools | Description |
 |---|---|---|
-| Lexicon-Based Analysis | VADER, TextBlob | Uses predefined sentiment lexicons and scoring rules |
-| Machine Learning | Scikit-learn with TF-IDF features | Learns sentiment categories from labeled examples |
-| Transformer-Based NLP | Hugging Face Transformers | Applies pretrained language models to text classification |
+| 📖 **Lexicon-Based Analysis** | VADER, TextBlob | Estimates sentiment using predefined word associations and scoring rules. |
+| 🤖 **Machine Learning** | Scikit-learn with TF-IDF features | Learns sentiment categories from labeled training examples. |
+| 🧠 **Transformer-Based NLP** | Hugging Face Transformers | Uses pretrained language models for sentiment classification or related text analysis tasks. |
 
-The selected approach should match the language of the speeches and the type of sentiment being investigated.
-
-Political speeches may contain irony, rhetorical emphasis, negation, historical references, and context-dependent expressions. A word that is positive in everyday language may have a different meaning in a political context.
-
-**Important:** Sentiment polarity is not the same as political ideology, factual accuracy, public approval, or the speaker's actual intentions. Results should therefore be interpreted as model-based estimates rather than definitive judgments.
-
----
-
-## 🔎 Text Mining and Topic Exploration
-
-Potential text mining techniques include:
-
-- **Word Frequency Analysis:** Identify frequently occurring terms.
-- **N-gram Analysis:** Examine repeated phrases and expressions.
-- **TF-IDF:** Identify terms that are relatively distinctive in individual speeches or document groups.
-- **Word Clouds:** Provide a visual overview of frequent terms.
-- **Topic Modeling:** Explore recurring themes using methods such as Latent Dirichlet Allocation (LDA), if suitable.
-- **Named Entity Recognition:** Extract references to people, organizations, and locations when supported by the language model.
-
-These methods can complement sentiment analysis by showing what speakers discuss, rather than only estimating the emotional tone of their words.
-
----
-
-## 📊 Comparative Analysis
-
-If sufficient metadata is available, the project may investigate questions such as:
-
-- How does the distribution of sentiment scores vary across speeches?
-- Which terms and phrases are most frequent in different groups of speeches?
-- How do prominent topics change over time?
-- Do speeches from different parties or speakers emphasize different themes?
-- How do sentiment estimates vary when different analytical methods are applied?
-
-Comparisons should account for differences in speech length, historical context, language, and corpus composition. Observed differences do not, by themselves, establish causation or explain a speaker's motives.
-
----
-
-## 🛠️ Technologies & Tools
-
-| Category | Technologies |
-|---|---|
-| Programming Language | Python |
-| Data Manipulation | Pandas, NumPy |
-| Text Processing | NLTK, spaCy |
-| Natural Language Processing | Scikit-learn |
-| Sentiment Analysis *(optional)* | VADER, TextBlob |
-| Transformer Models *(optional)* | Hugging Face Transformers |
-| Topic Modeling *(optional)* | Gensim |
-| Data Visualization | Matplotlib, Seaborn, WordCloud |
-| Development Environment | Jupyter Notebook |
-
-*The final list should include only the technologies actually used in the project.*
-
----
-
-## 📁 Project Structure
-
-```text
-08_Text_Mining_Political_Speeches/
-│
-├── README.md
-├── project.ipynb
-│
-├── data/                  # Speech corpus, if included
-├── figures/               # Generated visualizations
-└── results/               # Analysis outputs, if included
-```
-
-The folder structure can be adapted to the actual dataset and workflow. Large datasets should be excluded from version control when necessary.
-
----
-
-## 🚀 Expected Outcomes
-
-The project aims to produce:
-
-- A reproducible text preprocessing and analysis workflow.
-- An overview of the most frequent words and phrases in the corpus.
-- Sentiment estimates for speeches or text segments.
-- Visualizations of sentiment distributions and linguistic patterns.
-- Comparisons across speakers, groups, or time periods where the data supports them.
-- An assessment of the strengths and limitations of the selected NLP methods.
-
-The final conclusions should be based on the actual results and should distinguish observed patterns from interpretations.
-
----
-
-## 🔬 Scientific Motivation
-
-Political language is an important subject of research in computational social science, communication studies, and digital humanities.
-
-Text mining makes it possible to examine large collections of speeches systematically, while sentiment analysis provides one way to investigate emotional tone and evaluative language.
-
-Combining these methods can help researchers explore how political communication varies across contexts and over time. However, automated analysis should complement rather than replace close reading and contextual interpretation.
-
----
-
-## 📌 Project Focus
-
-**Political Speech Corpus → Text Preprocessing → Exploratory Text Mining → Sentiment Analysis → Comparative Analysis → Visualization → Contextual Interpretation**
+The choice of method should account for the language of the speeches, the availability of labeled data, and the type
