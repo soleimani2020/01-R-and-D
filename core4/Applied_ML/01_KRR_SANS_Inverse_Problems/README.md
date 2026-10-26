@@ -1,4 +1,4 @@
-# 🔬 Project 01: Kernel Ridge Regression (KRR) for SANS Inverse Problems
+# Project 01: Kernel Ridge Regression (KRR) for SANS Inverse Problems
 
 > **Scientific Machine Learning · Inverse Modeling · Small-Angle Neutron Scattering**
 
