@@ -1,263 +1,148 @@
 # Linear Regression Using the Normal Equation
 
-> 📊 **Machine Learning** · 📈 **Linear Regression** · 🧮 **Linear Algebra** · 🎯 **Least-Squares Optimization**
+> 📈 A mathematical approach to linear regression using **linear algebra, matrix operations, and analytical optimization**.
 
-## 📌 Project Overview
+## 📌 Overview
 
-The **Normal Equation** is an analytical method for finding the coefficients of a linear regression model by minimizing the sum of squared prediction errors.
+Linear regression is a supervised machine learning algorithm used to model the relationship between input features and a continuous target variable.
 
-Unlike gradient descent, which iteratively updates the model parameters, the Normal Equation provides a direct solution when the required matrix operations are well-defined.
+The **Normal Equation** provides an analytical solution for estimating the model parameters by minimizing the sum of squared prediction errors. Unlike gradient descent, it does not require iterative parameter updates or a learning rate.
 
-This guide derives the Normal Equation step by step using matrix algebra and differentiation.
+📚 **Reference:** [Linear Regression Using the Normal Equation](https://www.youtube.com/watch?v=9sK7p2f6Y0E)
 
-### 🎥 Video Tutorial
+## 🎯 Objectives
 
-[Linear Regression Using the Normal Equation](https://www.youtube.com/watch?v=1kkVEcmhkL8)
+- Understand the mathematical foundations of linear regression.
+- Express the model using matrix notation.
+- Derive the cost function and its gradient.
+- Obtain the Normal Equation by setting the gradient to zero.
+- Understand the advantages and limitations of the analytical solution.
+- Compare the Normal Equation with gradient descent.
 
-## 🎯 Main Goal
+## 🧠 Mathematical Background
 
-Understand how to derive the least-squares solution for linear regression by minimizing the squared error between the true target values and the model's predictions.
+### 1. Linear Regression Model
 
-## 🧮 Mathematical Derivation
+For a dataset containing \(m\) observations and \(n\) features, the prediction for observation \(i\) is:
 
-### 1. Define the Linear Regression Model
+$$
+\hat{y}^{(i)} = \theta_0 + \theta_1 x_1^{(i)} + \cdots + \theta_n x_n^{(i)}
+$$
 
-We assume the model:
+Where:
+
+- \(\hat{y}^{(i)}\) is the predicted value.
+- \(x_j^{(i)}\) is feature \(j\) for observation \(i\).
+- \(\theta_0\) is the intercept.
+- \(\theta_j\) represents the coefficient associated with feature \(j\).
+
+In matrix notation, the model becomes:
 
 $$
 \hat{y} = X\theta
 $$
 
-where:
+Here, \(X\) is the feature matrix and \(\theta\) is the parameter vector. To include the intercept, the feature matrix contains a column of ones.
 
-- \(X\) is the feature matrix.
-- \(\theta\) is the vector of model coefficients.
-- \(y\) is the vector of true target values.
-- \(\hat{y}\) is the vector of predicted target values.
+### 2. Residuals and Cost Function
 
-If the model includes an intercept, a column of ones must be added to \(X\).
-
-### 2. Define the Residuals and Cost Function
-
-The residual vector represents the difference between the actual and predicted values:
+A residual is the difference between the actual target value and the predicted value:
 
 $$
 e = y - X\theta
 $$
 
-We minimize the sum of squared errors:
+The least-squares cost function minimizes the sum of squared residuals:
 
 $$
-J(\theta) = \|y-X\theta\|^2
+J(\theta) = \|y-X\theta\|_2^2
 $$
 
-Using the squared-norm identity:
+Equivalently:
 
 $$
-J(\theta) = (y-X\theta)^\top(y-X\theta)
+J(\theta) = (y-X\theta)^T(y-X\theta)
 $$
 
-### 3. Expand the Cost Function
-
-Expanding the matrix product gives:
+Expanding the expression gives:
 
 $$
-J(\theta)
-= y^\top y
-- y^\top X\theta
-- \theta^\top X^\top y
-+ \theta^\top X^\top X\theta
+J(\theta) = y^Ty - 2\theta^TX^Ty + \theta^TX^TX\theta
 $$
 
-The terms \(y^\top X\theta\) and \(\theta^\top X^\top y\) are scalars. A scalar is equal to its transpose, so:
+The objective is to find the parameter vector \(\theta\) that minimizes this cost function.
+
+### 3. Deriving the Normal Equation
+
+To minimize the cost function, we calculate its gradient with respect to the parameter vector:
 
 $$
-y^\top X\theta = \theta^\top X^\top y
-$$
-
-Therefore, the cost function simplifies to:
-
-$$
-J(\theta)
-= y^\top y
-- 2\theta^\top X^\top y
-+ \theta^\top X^\top X\theta
-$$
-
-### 4. Differentiate with Respect to the Parameters
-
-We differentiate each term with respect to \(\theta\).
-
-The first term is independent of \(\theta\):
-
-$$
-\frac{\partial}{\partial\theta}(y^\top y)=0
-$$
-
-The derivative of the second term is:
-
-$$
-\frac{\partial}{\partial\theta}
-(-2\theta^\top X^\top y)
-= -2X^\top y
-$$
-
-The derivative of the quadratic term is:
-
-$$
-\frac{\partial}{\partial\theta}
-(\theta^\top X^\top X\theta)
-= 2X^\top X\theta
-$$
-
-This follows because \(X^\top X\) is symmetric.
-
-Combining the terms gives the gradient:
-
-$$
-\nabla_\theta J
-= -2X^\top y + 2X^\top X\theta
-$$
-
-### 5. Set the Gradient to Zero
-
-At the minimum of the least-squares cost function, the gradient must be zero:
-
-$$
-\nabla_\theta J=0
-$$
-
-Substituting the gradient:
-
-$$
--2X^\top y+2X^\top X\theta=0
-$$
-
-Dividing both sides by 2:
-
-$$
--X^\top y+X^\top X\theta=0
-$$
-
-Rearranging gives:
-
-$$
-X^\top X\theta=X^\top y
-$$
-
-This is the **Normal Equation**.
-
-### 6. Solve for the Coefficients
-
-If \(X^\top X\) is invertible, multiply both sides from the left by its inverse:
-
-$$
-(X^\top X)^{-1}X^\top X\theta
+\nabla_\theta J(\theta)
 =
-(X^\top X)^{-1}X^\top y
+-2X^Ty + 2X^TX\theta
 $$
 
-Since:
+At the minimum, the gradient is zero:
 
 $$
-(X^\top X)^{-1}X^\top X=I
+-2X^Ty + 2X^TX\theta = 0
 $$
 
-we obtain:
+Rearranging gives the **Normal Equation**:
 
 $$
-I\theta=(X^\top X)^{-1}X^\top y
+X^TX\theta = X^Ty
 $$
 
-Because \(I\theta=\theta\), the final solution is:
+If \(X^TX\) is invertible, the parameters can be calculated directly:
 
 $$
-\boxed{\theta=(X^\top X)^{-1}X^\top y}
+\boxed{\theta = (X^TX)^{-1}X^Ty}
 $$
 
-This is the inverse-based form of the least-squares solution.
+This equation provides the least-squares solution without iterative optimization.
 
-## 🐍 Python Implementation
+## ⚙️ Important Considerations
 
-The following example uses NumPy to calculate the coefficients with the Normal Equation.
+### When Is the Solution Unique?
 
-```python
-import numpy as np
+The inverse-based solution requires \(X^TX\) to be invertible. This generally requires the columns of \(X\) to be linearly independent.
 
-# Example feature values
-X = np.array([
-    [1, 1],
-    [1, 2],
-    [1, 3],
-    [1, 4],
-    [1, 5]
-], dtype=float)
+If features are redundant or highly dependent, the matrix may be singular or poorly conditioned. In such cases, numerical methods based on least squares or the pseudoinverse can be more appropriate than explicitly calculating a matrix inverse.
 
-# Target values
-y = np.array([2, 4, 5, 4, 6], dtype=float)
+### Advantages
 
-# Solve the least-squares problem
-theta = np.linalg.lstsq(X, y, rcond=None)[0]
+- Provides a direct analytical solution under the required conditions.
+- Does not require a learning rate.
+- Does not require iterative gradient updates.
+- Is useful for understanding the mathematical foundations of linear regression.
 
-# Predictions
-y_pred = X @ theta
+### Limitations
 
-print("Coefficients:", theta)
-print("Predictions:", y_pred)
-```
+- Matrix operations can become computationally expensive as the number of features increases.
+- The inverse-based formula is not suitable when the required inverse does not exist.
+- Numerical instability may arise when the feature matrix is poorly conditioned.
+- The method remains sensitive to outliers because it minimizes squared errors.
 
-The first column of ones represents the intercept. The second column contains the feature values.
-
-`np.linalg.lstsq()` computes a least-squares solution without explicitly calculating the matrix inverse. This is generally preferable numerically to implementing the inverse-based formula directly.
-
-## ⚠️ Important Considerations
-
-### When Does the Inverse-Based Formula Work?
-
-The expression:
-
-$$
-\theta=(X^\top X)^{-1}X^\top y
-$$
-
-requires \(X^\top X\) to be invertible. This holds when the columns of \(X\) are linearly independent.
-
-If features are perfectly collinear or there are insufficient independent observations, the matrix may be singular.
-
-In such cases, a least-squares solver or the Moore–Penrose pseudoinverse can be used.
-
-### Normal Equation vs. Gradient Descent
+## 🔄 Normal Equation vs. Gradient Descent
 
 | Feature | Normal Equation | Gradient Descent |
 |---|---|---|
-| Approach | Direct least-squares solution | Iterative optimization |
+| Optimization | Analytical solution | Iterative optimization |
 | Learning rate | Not required | Required |
-| Iterations | Not required | Usually required |
-| Large feature sets | Matrix operations can be expensive | Can be more practical |
-| Convergence tuning | No learning-rate tuning | Learning rate and stopping criteria matter |
+| Iterations | Not required | Required |
+| Large feature sets | Can be computationally expensive | May be more practical |
+| Matrix inversion | Used in the direct formula | Not required |
+| Convergence | Direct least-squares solution under suitable conditions | Depends on optimization settings |
 
-The Normal Equation is particularly useful for understanding the analytical solution to linear regression, while iterative optimization methods can be more practical for large-scale problems.
+## ✅ Key Takeaways
 
-## 🚀 Key Takeaways
+- Linear regression can be expressed compactly using matrix notation.
+- The least-squares objective minimizes the sum of squared residuals.
+- Setting the gradient of the cost function to zero leads to the Normal Equation.
+- The inverse-based formula provides a direct solution when \(X^TX\) is invertible.
+- For practical numerical computation, least-squares solvers are generally preferable to explicitly calculating the matrix inverse.
 
-- Linear regression predicts targets using a linear combination of features.
-- Least squares minimizes the sum of squared residuals.
-- Differentiating the cost function and setting its gradient to zero produces the Normal Equation.
-- The inverse-based solution requires \(X^\top X\) to be invertible.
-- Numerical least-squares solvers are generally preferable to explicitly calculating a matrix inverse.
+## 🔬 Scientific Motivation
 
-## 📌 Final Formula
-
-The least-squares coefficients are obtained by solving:
-
-$$
-X^\top X\theta=X^\top y
-$$
-
-When \(X^\top X\) is invertible, the solution is:
-
-$$
-\boxed{\theta=(X^\top X)^{-1}X^\top y}
-$$
-
-**Project focus:** Linear model → Squared-error cost function → Matrix expansion → Gradient calculation → Normal Equation → Least-squares solution
+The Normal Equation demonstrates how a machine learning model can be derived using mathematical optimization and linear algebra. Understanding this derivation helps build a foundation for more advanced methods, including gradient-based optimization, regularized regression, and numerical machine learning.
