@@ -8,7 +8,7 @@
 
 Although its name includes *regression*, logistic regression is commonly used for classification tasks.
 
-This guide covers the model's mathematical foundations, the sigmoid function, decision boundaries, log-odds interpretation, and training objective.
+This guide covers the mathematical foundations of the model, the sigmoid function, classification thresholds, decision boundaries, log-odds interpretation, and the training objective.
 
 ## 📑 Table of Contents
 
@@ -22,192 +22,238 @@ This guide covers the model's mathematical foundations, the sigmoid function, de
 8. [Python Example](#8-python-example)
 9. [Summary](#9-summary)
 
+---
+
 ## 1. Overview
 
-Logistic regression is designed for classification problems in which the target variable has two possible values:
+Logistic regression is designed for binary classification problems in which the target variable has two possible values:
 
-\[
-y\in\{0,1\}
-\]
+$$
+y \in \{0,1\}
+$$
 
 The model first calculates a linear score:
 
-\[
-z=Xw+b
-\]
+$$
+z = Xw + b
+$$
 
 where:
 
-- \(X\) represents the input features.
-- \(w\) represents the model weights.
-- \(b\) is the bias or intercept.
-- \(z\) is the linear score.
+- `X` represents the input feature matrix.
+- `w` represents the model weights.
+- `b` is the bias or intercept.
+- `z` is the linear score.
 
 The linear score can take any real value, so it cannot directly be interpreted as a probability. The sigmoid function transforms it into a value between 0 and 1.
 
+---
+
 ## 2. The Model
 
-For a single observation \(x\), logistic regression calculates:
+For a single observation, the model calculates:
 
-\[
-z=x^\top w+b
-\]
+$$
+z = x^\top w + b
+$$
 
-For a dataset containing multiple observations, the corresponding vectorized expression is:
+For an entire dataset, the vectorized expression is:
 
-\[
-z=Xw+b
-\]
+$$
+z = Xw + b
+$$
 
 The resulting score is passed through the sigmoid function to estimate the probability of the positive class.
+
+The model learns the weights and bias from the training data by minimizing a suitable loss function.
+
+---
 
 ## 3. The Sigmoid Function
 
 The sigmoid function converts a real-valued score into a probability:
 
-\[
-\boxed{
-\sigma(z)=\frac{1}{1+e^{-z}}
-}
-\]
+$$
+\sigma(z) = \frac{1}{1 + e^{-z}}
+$$
 
 The probability that an observation belongs to class 1 is:
 
-\[
-P(y=1\mid x)=\sigma(x^\top w+b)
-\]
+$$
+P(y = 1 \mid x) = \sigma(x^\top w + b)
+$$
 
-Writing this probability as \(p\), the probability of class 0 is:
+If we denote this probability by `p`, the probability of class 0 is:
 
-\[
-P(y=0\mid x)=1-p
-\]
+$$
+P(y = 0 \mid x) = 1 - p
+$$
 
 ### Key Properties
 
-The sigmoid function has several important properties:
+The sigmoid function has the following properties:
 
-\[
-0<\sigma(z)<1
-\]
+**Output range:**
 
-\[
-\sigma(0)=0.5
-\]
+$$
+0 < \sigma(z) < 1
+$$
 
-\[
-\lim_{z\to+\infty}\sigma(z)=1
-\]
+**At zero:**
 
-\[
-\lim_{z\to-\infty}\sigma(z)=0
-\]
+$$
+\sigma(0) = 0.5
+$$
 
-The function is monotonically increasing: larger linear scores produce larger estimated probabilities.
+**As the score approaches positive infinity:**
+
+$$
+\lim_{z \to +\infty} \sigma(z) = 1
+$$
+
+**As the score approaches negative infinity:**
+
+$$
+\lim_{z \to -\infty} \sigma(z) = 0
+$$
+
+The sigmoid function is monotonically increasing. Therefore, a larger linear score produces a larger estimated probability of class 1.
+
+---
 
 ## 4. Classification Threshold
 
-Logistic regression estimates probabilities, but a classification task usually requires a discrete prediction.
+Logistic regression estimates probabilities, but classification generally requires a discrete prediction.
 
-Using the default threshold of 0.5:
+Using the default threshold of `0.5`:
 
-\[
-\hat y=
+$$
+\hat{y} =
 \begin{cases}
-1, & p\geq 0.5\\
-0, & p<0.5
+1 & \text{if } p \geq 0.5 \\
+0 & \text{if } p < 0.5
 \end{cases}
-\]
+$$
 
-In practice:
+where:
+
+$$
+p = P(y = 1 \mid x)
+$$
+
+The rule can also be written as:
 
 ```text
 Probability >= 0.5  -> Class 1
 Probability <  0.5  -> Class 0
 ```
 
-The threshold can be adjusted depending on the application. For example, a lower threshold may increase recall at the expense of precision.
+The threshold can be adjusted according to the application.
 
-The threshold of 0.5 is a common default, not a universally optimal choice.
+For example, lowering the threshold may increase recall while reducing precision. The appropriate threshold depends on the relative costs of false positives and false negatives.
+
+---
 
 ## 5. Decision Boundary
 
-Because the sigmoid function is monotonically increasing and \(\sigma(0)=0.5\), the default classification rule can also be expressed using the linear score:
+Because the sigmoid function is monotonically increasing and:
 
-\[
-\hat y=
+$$
+\sigma(0) = 0.5
+$$
+
+the classification rule can also be expressed directly in terms of the linear score.
+
+$$
+\hat{y} =
 \begin{cases}
-1, & x^\top w+b\geq 0\\
-0, & x^\top w+b<0
+1 & \text{if } x^\top w + b \geq 0 \\
+0 & \text{if } x^\top w + b < 0
 \end{cases}
-\]
+$$
 
 The decision boundary is defined by:
 
-\[
-\boxed{x^\top w+b=0}
-\]
+$$
+\boxed{x^\top w + b = 0}
+$$
 
 This boundary separates the feature space into regions associated with the two predicted classes.
 
-For two input features, the boundary is generally a straight line. With more features, it becomes a hyperplane.
+- With one feature, the boundary is a point on the number line.
+- With two features, the boundary is generally a straight line.
+- With more features, the boundary is a hyperplane.
 
-Although the estimated probabilities are produced by a nonlinear sigmoid transformation, the standard logistic regression decision boundary is linear in the original feature space.
+Although the sigmoid function is nonlinear, standard logistic regression produces a linear decision boundary in the original feature space.
+
+---
 
 ## 6. Log-Odds Interpretation
 
-Logistic regression can also be understood through the concepts of odds and log-odds.
+Logistic regression can also be understood through odds and log-odds.
 
-The odds of class 1 are:
+### Odds
 
-\[
-\text{Odds}=\frac{p}{1-p}
-\]
+The odds of class 1 are defined as:
 
-Taking the natural logarithm gives the log-odds:
+$$
+\text{Odds} = \frac{p}{1-p}
+$$
 
-\[
-\log\left(\frac{p}{1-p}\right)=x^\top w+b
-\]
+where `p` is the probability of class 1.
+
+### Log-Odds
+
+Taking the natural logarithm gives:
+
+$$
+\log\left(\frac{p}{1-p}\right) = x^\top w + b
+$$
 
 Therefore, logistic regression models the **log-odds of the positive class as a linear function of the input features**.
 
 ### Interpreting the Coefficients
 
-For a feature \(x_j\), its coefficient \(w_j\) represents the change in log-odds associated with a one-unit increase in that feature, holding the other features constant.
+For a feature `x_j`, the coefficient `w_j` represents the change in log-odds associated with a one-unit increase in that feature, holding the other features constant.
 
-Exponentiating the coefficient gives:
+Exponentiating the coefficient gives the odds ratio:
 
-\[
-e^{w_j}
-\]
+$$
+\text{Odds Ratio} = e^{w_j}
+$$
 
-This is the corresponding multiplicative change in the odds for a one-unit increase in the feature, assuming the model's other inputs remain fixed.
+Interpretation:
 
-A positive coefficient increases the estimated log-odds as the feature increases, while a negative coefficient decreases them.
+- If `w_j > 0`, increasing the feature increases the log-odds of class 1.
+- If `w_j < 0`, increasing the feature decreases the log-odds of class 1.
+- If `w_j = 0`, the feature has no direct contribution to the linear score.
+
+The odds ratio describes a multiplicative change in odds, not a constant change in probability.
+
+---
 
 ## 7. Training Objective
 
-The model parameters \(w\) and \(b\) are learned by minimizing the **binary cross-entropy loss**, also known as log loss.
+The model parameters `w` and `b` are learned by minimizing **binary cross-entropy loss**, also known as log loss.
 
-For \(N\) training observations:
+For `N` training observations:
 
-\[
-\boxed{
-J(w,b)=
--\frac{1}{N}\sum_{i=1}^{N}
+$$
+J(w,b) =
+-\frac{1}{N}
+\sum_{i=1}^{N}
 \left[
-y_i\log(p_i)
-+(1-y_i)\log(1-p_i)
+y_i \log(p_i)
++
+(1-y_i)\log(1-p_i)
 \right]
-}
-\]
+$$
 
-where:
+where the predicted probability for observation `i` is:
 
-\[
-p_i=\sigma(x_i^\top w+b)
-\]
+$$
+p_i = \frac{1}{1 + e^{-(x_i^\top w+b)}}
+$$
 
 The loss measures how well the predicted probabilities match the true labels.
 
@@ -215,13 +261,17 @@ The loss measures how well the predicted probabilities match the true labels.
 - Uncertain predictions generally receive a higher loss.
 - Confident, incorrect predictions receive a particularly high loss.
 
-Minimizing binary cross-entropy encourages the model to assign high probabilities to actual positive observations and low probabilities to actual negative observations.
+Minimizing binary cross-entropy encourages the model to assign high probabilities to positive observations and low probabilities to negative observations.
 
 Regularization can also be added to the objective to reduce overfitting.
+
+---
 
 ## 8. Python Example
 
 The following example demonstrates logistic regression using `scikit-learn`.
+
+### Import Libraries
 
 ```python
 from sklearn.datasets import make_classification
@@ -230,8 +280,11 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report
+```
 
-# Generate a binary classification dataset
+### Generate a Dataset
+
+```python
 X, y = make_classification(
     n_samples=1000,
     n_features=10,
@@ -239,8 +292,13 @@ X, y = make_classification(
     n_redundant=2,
     random_state=42
 )
+```
 
-# Split the data into training and test sets
+This creates a synthetic binary classification dataset.
+
+### Split the Data
+
+```python
 X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
@@ -248,63 +306,66 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42,
     stratify=y
 )
+```
 
-# Scale the features and train the model
+The dataset is divided into training and test sets. The `stratify=y` argument helps preserve the class proportions in both sets.
+
+### Train the Model
+
+```python
 model = make_pipeline(
     StandardScaler(),
     LogisticRegression(max_iter=1000)
 )
 
 model.fit(X_train, y_train)
+```
 
-# Predict class labels and probabilities
+The pipeline standardizes the features using training-set statistics before fitting the logistic regression model.
+
+### Make Predictions
+
+```python
 y_pred = model.predict(X_test)
-y_proba = model.predict_proba(X_test)[:, 1]
 
-# Evaluate the model
+y_proba = model.predict_proba(X_test)[:, 1]
+```
+
+- `y_pred` contains predicted class labels.
+- `y_proba` contains the estimated probabilities of class 1.
+
+### Evaluate the Model
+
+```python
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print(classification_report(y_test, y_pred))
 ```
 
-### Understanding the Example
-
-1. **Data generation:** creates a synthetic binary classification dataset.
-2. **Train-test split:** reserves 20% of the observations for testing.
-3. **Feature scaling:** standardizes the features using statistics learned from the training data.
-4. **Model training:** fits logistic regression to the training data.
-5. **Class prediction:** produces discrete class labels.
-6. **Probability estimation:** returns the estimated probability of class 1.
-7. **Evaluation:** measures performance on the held-out test set.
+These metrics summarize the model's classification performance on the held-out test set.
 
 The example is illustrative; actual performance depends on the dataset and its underlying patterns.
 
+---
+
 ## 9. Summary
 
-The logistic regression workflow can be summarized in four steps.
+Logistic regression follows four main steps.
 
-**Step 1 — Calculate the linear score:**
+### Step 1 — Calculate the Linear Score
 
-\[
-z=x^\top w+b
-\]
+$$
+z = x^\top w + b
+$$
 
-**Step 2 — Convert the score into a probability:**
+### Step 2 — Convert the Score into a Probability
 
-\[
-p=\sigma(z)=\frac{1}{1+e^{-z}}
-\]
+$$
+p = \sigma(z) = \frac{1}{1 + e^{-z}}
+$$
 
-**Step 3 — Apply the classification threshold:**
+### Step 3 — Apply the Classification Threshold
 
-```text
-p >= 0.5  -> Predict class 1
-p <  0.5  -> Predict class 0
-```
-
-**Step 4 — Learn the parameters:**
-
-Minimize binary cross-entropy to obtain weights and a bias that fit the training data.
-
-### 📌 Key Takeaway
-
-Logistic regression is an interpretable linear classifier that estimates class probabilities using the sigmoid function. Its parameters are learned through an optimization objective, and its predictions are determined by applying a classification threshold to the estimated probabilities.
+$$
+\hat{y} =
+\begin{cases}
+1 & \text{if } p
