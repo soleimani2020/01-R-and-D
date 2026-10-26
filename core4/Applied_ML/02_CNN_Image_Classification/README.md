@@ -1,5 +1,5 @@
 # Project 02: Image Classification with Convolutional Neural Networks (CNNs)
----
+
 
 ## 📌 Project Overview
 
