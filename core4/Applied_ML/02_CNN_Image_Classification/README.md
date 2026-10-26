@@ -1,4 +1,4 @@
-# 🖼️ 02_ Image Classification with Convolutional Neural Networks (CNNs)
+# Project 02_ Image Classification with Convolutional Neural Networks (CNNs)
 
 ## 🔍 Overview
 This project explores image classification using **Convolutional Neural Networks (CNNs)**, a deep learning architecture designed to learn spatial patterns and hierarchical features directly from images. The project covers the main stages of an image classification workflow, from data preprocessing to model training, evaluation, and visualization.
