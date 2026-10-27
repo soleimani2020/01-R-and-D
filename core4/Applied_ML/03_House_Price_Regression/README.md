@@ -1,6 +1,6 @@
 # Project 03: House Price Prediction with Regression
 
-> 🏠 **Supervised Learning** · 📊 **Regression Analysis** · 🧠 **Deep Learning** · 📈 **Predictive Modeling**
+> 🏠 **Supervised Learning** · 📊 **Regression Analysis** · ⚙️ **Regularization** · 📈 **Predictive Modeling**
 
 ---
 
@@ -8,13 +8,15 @@
 
 This project explores the application of **supervised machine learning regression techniques** to predict residential property sale prices based on their characteristics.
 
-Using the **Ames Housing dataset**, the project follows an end-to-end machine learning workflow, covering exploratory data analysis, data preprocessing, feature engineering, neural network development, model training, and performance evaluation.
+Using the **Ames Housing dataset**, the project follows an end-to-end machine learning workflow, covering exploratory data analysis, data preprocessing, feature engineering, regression modeling, hyperparameter tuning, and performance evaluation.
 
-The model learns relationships between property features—such as living area, overall quality, and other structural characteristics—and their corresponding sale prices. Its predictive performance is then evaluated on previously unseen data to assess its accuracy and generalization capability.
+The models learn relationships between property features—such as living area, overall quality, and other structural characteristics—and their corresponding sale prices. Their predictive performance is then evaluated on previously unseen data to assess accuracy and generalization capability.
+
+The project compares Linear Regression, Ridge Regression, and Elastic Net Regression to investigate the effects of regularization on predictive performance.
 
 ### 🎯 Main Goal
 
-Develop and evaluate a neural network regression model that predicts house sale prices from property characteristics, with a focus on predictive accuracy, generalization performance, and the interpretation of prediction errors.
+Develop and evaluate regression models that predict house sale prices from property characteristics, with a focus on predictive accuracy, regularization, generalization performance, and the interpretation of prediction errors.
 
 ---
 
@@ -23,10 +25,10 @@ Develop and evaluate a neural network regression model that predicts house sale 
 - 🏠 **Dataset Exploration** — Examine the Ames Housing dataset, its feature distributions, and the target variable.
 - 🔎 **Exploratory Data Analysis** — Investigate relationships between property characteristics and sale prices.
 - 🧹 **Data Preprocessing** — Handle missing values and prepare numerical and categorical features.
-- ⚙️ **Feature Engineering** — Scale numerical variables and encode categorical features for neural network training.
-- 🧠 **Model Development** — Build a regression neural network using TensorFlow and Keras.
-- 🏋️ **Model Training** — Optimize model parameters using an appropriate loss function and optimizer.
-- 🛡️ **Overfitting Prevention** — Apply early stopping to monitor validation performance during training.
+- ⚙️ **Feature Engineering** — Standardize numerical variables and encode categorical features for regression modeling.
+- 📊 **Model Development** — Build Linear Regression, Ridge, and Elastic Net models using scikit-learn.
+- 🔍 **Hyperparameter Tuning** — Investigate regularization strengths and Elastic Net parameters using cross-validation.
+- 🛡️ **Overfitting Prevention** — Explore the effects of L1 and L2 regularization on model performance.
 - 📊 **Performance Evaluation** — Assess predictive accuracy using complementary regression metrics.
 - 📈 **Prediction Analysis** — Compare predicted and actual sale prices and examine residuals.
 - 🔬 **Generalization Assessment** — Investigate model behavior on unseen data and identify potential limitations.
@@ -42,32 +44,32 @@ The project follows a structured workflow from data exploration to predictive ev
 | **01** | 🏠 Dataset Exploration | Load the Ames Housing dataset and inspect its structure, feature types, and target variable. |
 | **02** | 🔎 Exploratory Data Analysis | Analyze distributions, correlations, and relationships between property characteristics and sale prices. |
 | **03** | 🧹 Data Preprocessing | Handle missing values and prepare numerical and categorical features for modeling. |
-| **04** | ⚙️ Feature Engineering | Scale numerical features and encode categorical variables into model-compatible representations. |
-| **05** | 🧠 Model Development | Design a feedforward neural network for continuous-value prediction using TensorFlow/Keras. |
-| **06** | 🏋️ Model Training | Train the network using an appropriate optimizer, regression loss function, and validation data. |
-| **07** | 🛑 Training Optimization | Apply early stopping to monitor validation performance and limit unnecessary training. |
-| **08** | 📊 Model Evaluation | Evaluate predictive performance using MAE, MSE, RMSE, and R². |
-| **09** | 📈 Prediction Analysis | Visualize predicted versus actual prices and investigate the distribution of prediction errors. |
+| **04** | ⚙️ Feature Engineering | Standardize numerical features and encode categorical variables into model-compatible representations. |
+| **05** | 📊 Baseline Modeling | Establish a baseline using Linear Regression to evaluate initial predictive performance. |
+| **06** | 🛡️ Ridge Regression | Investigate L2 regularization and select a suitable regularization strength. |
+| **07** | 🔍 Elastic Net Regression | Tune the balance between L1 and L2 regularization using GridSearchCV with three-fold cross-validation. |
+| **08** | 📈 Model Comparison | Compare training and test performance using regression metrics. |
+| **09** | 📊 Error Analysis | Examine prediction errors and assess the models' generalization capabilities. |
 
 ---
 
-## 🧠 Regression Model
+## 📊 Regression Models
 
-The project uses a **feedforward neural network for regression** to learn potentially nonlinear relationships between property characteristics and sale prices.
+The project compares three regression approaches to learn relationships between property characteristics and sale prices.
 
 ### 🔑 Model Components
 
-| Component | Function |
+| Model | Function |
 |---|---|
-| 🏡 **Input Layer** | Receives the preprocessed numerical and categorical features. |
-| 🧠 **Dense Layers** | Learn relationships and interactions between input features. |
-| ⚡ **Activation Functions** | Introduce nonlinear transformations to represent more complex patterns. |
-| 🛑 **Early Stopping** | Monitors validation performance and stops training when improvement stalls. |
-| 🎯 **Output Layer** | Produces a continuous numerical estimate of the property's sale price. |
+| 📈 **Linear Regression** | Establishes a baseline by fitting a linear relationship between property features and sale prices. |
+| 🛡️ **Ridge Regression** | Applies L2 regularization to penalize large coefficients and help control overfitting. |
+| ⚖️ **Elastic Net Regression** | Combines L1 and L2 regularization to control coefficient magnitudes and potentially reduce the influence of less useful features. |
+| 🔍 **GridSearchCV** | Evaluates hyperparameter combinations through cross-validation to identify suitable model settings. |
+| 📏 **StandardScaler** | Standardizes numerical feature values before regression modeling. |
 
-The model is trained by minimizing a regression loss function, allowing its parameters to adjust iteratively to reduce prediction errors.
+The models are trained by minimizing a regression loss function. Regularization adds a penalty to the objective for Ridge and Elastic Net, helping control model complexity.
 
-> **Modeling strategy:** Establish a baseline, evaluate its performance, and use the results to guide further architectural or optimization changes.
+> **Modeling strategy:** Establish a baseline, investigate regularization, tune model parameters using cross-validation, and compare the selected models on held-out test data.
 
 ---
 
@@ -80,7 +82,7 @@ Multiple metrics are used to assess different aspects of regression performance.
 | 📏 **Mean Absolute Error (MAE)** | Measures the average absolute prediction error in the target variable's units. |
 | 📉 **Mean Squared Error (MSE)** | Measures the average squared prediction error, assigning greater weight to larger errors. |
 | 📐 **Root Mean Squared Error (RMSE)** | Expresses the square root of the average squared error in the target variable's units. |
-| 📈 **Coefficient of Determination (R²)** | Compares the model's predictive performance with a baseline that predicts the mean target value, under the standard evaluation definition. |
+| 📈 **Coefficient of Determination (R²)** | Measures how much of the target's variation is explained by the model relative to a mean-prediction baseline. |
 
 Together, these metrics provide complementary information about prediction accuracy and the magnitude of errors.
 
@@ -93,9 +95,9 @@ Together, these metrics provide complementary information about prediction accur
 | 🐍 **Python** | Core programming language |
 | 🐼 **Pandas** | Data manipulation, exploration, and preprocessing |
 | 🔢 **NumPy** | Numerical computations and array operations |
-| 🧠 **TensorFlow / Keras** | Neural network architecture, training, and optimization |
-| 🤖 **Scikit-learn** | Feature preprocessing, categorical encoding, and regression evaluation |
-| 📈 **Matplotlib** | Visualization of data distributions, training curves, and predictions |
+| 🤖 **Scikit-learn** | Regression models, feature preprocessing, hyperparameter tuning, and evaluation |
+| 📈 **Matplotlib** | Visualization of data distributions, model comparisons, and predictions |
+| 📊 **Seaborn** | Exploratory data analysis and statistical visualization |
 | 📓 **Jupyter Notebook** | Interactive development, experimentation, and documentation |
 
 ---
@@ -106,12 +108,18 @@ Together, these metrics provide complementary information about prediction accur
 03_House_Price_Regression/
 ├── README.md
 ├── project.ipynb
-└── main.py                 # Optional: standalone implementation
+├── requirements.txt         # Python dependencies
+├── figures/                 # Evaluation and visualization plots
+└── results/                 # Model comparison and evaluation outputs
 ```
 
 - **`README.md`** — Project overview, methodology, technologies, and documentation.
-- **`project.ipynb`** — Interactive workflow for data exploration, preprocessing, model training, visualization, and evaluation.
-- **`main.py`** — Optional Python script for running the main workflow outside the notebook.
+- **`project.ipynb`** — Interactive workflow for data exploration, preprocessing, model training, tuning, visualization, and evaluation.
+- **`requirements.txt`** — Dependencies needed to reproduce the analysis.
+- **`figures/`** — Saved plots, if included.
+- **`results/`** — Evaluation metrics and model comparison results, if included.
+
+The folder structure can be adapted to the final implementation. The dataset does not necessarily need to be included in the repository.
 
 ---
 
@@ -121,15 +129,16 @@ The project aims to establish a reproducible workflow for residential property p
 
 Key outcomes include:
 
-- ✅ A trained neural network for predicting house sale prices.
+- ✅ A baseline Linear Regression model for predicting house sale prices.
+- 🛡️ Ridge and Elastic Net models with tuned regularization parameters.
+- 🔍 A cross-validation workflow for model selection.
 - 📊 Quantitative evaluation using multiple regression metrics.
-- 📈 Visualization of training and validation loss.
-- 🏠 Comparison of predicted and actual sale prices.
-- 🔍 Analysis of residuals and prediction errors.
+- 🏠 Comparison of training and test performance.
+- 📈 Analysis of prediction errors and residuals.
 - 🛡️ Assessment of generalization performance and potential overfitting.
 - 📌 Identification of limitations and opportunities for further model improvement.
 
-Actual performance should be reported using the model's evaluation results rather than assumed in advance.
+Actual performance should be reported using the models' evaluation results rather than assumed in advance.
 
 ---
 
@@ -137,12 +146,12 @@ Actual performance should be reported using the model's evaluation results rathe
 
 Residential property prices depend on numerous interacting factors, including living area, overall quality, structural characteristics, and location-related attributes.
 
-**Regression provides a data-driven framework for modeling relationships between these features and property values.** Neural networks extend this approach by learning nonlinear relationships and feature interactions that may be difficult to capture using simple linear models.
+**Regression provides a data-driven framework for modeling relationships between these features and property values.** Regularized regression methods extend ordinary Linear Regression by penalizing coefficient magnitudes, which can help control overfitting and improve predictive performance when features are correlated or numerous.
 
-By applying a neural network to the Ames Housing dataset, this project demonstrates a practical application of supervised learning to structured real-world data while emphasizing preprocessing, optimization, quantitative evaluation, and model generalization.
+By comparing Linear Regression, Ridge, and Elastic Net on the Ames Housing dataset, this project demonstrates a practical application of supervised learning to structured data while emphasizing preprocessing, hyperparameter tuning, quantitative evaluation, and model generalization.
 
 ---
 
 ## 📌 Project Focus
 
-**Housing Data → Exploratory Analysis → Data Preprocessing → Feature Engineering → Neural Network Regression → Price Prediction → Performance Evaluation → Error Analysis**
+**Housing Data → Exploratory Analysis → Data Preprocessing → Feature Engineering → Linear Regression → Ridge and Elastic Net → Cross-Validation → Performance Evaluation → Error Analysis**
