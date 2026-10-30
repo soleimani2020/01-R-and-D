@@ -1,229 +1,141 @@
-# Project 10: Advanced Loan Classification and Risk Analysis
-
-> 💳 **Credit Risk Analysis** · 🎯 **Classification** · 📊 **Financial Data Science** · 🤖 **Machine Learning**
-
+Who Will Repay a Loan? Predicting Risk and Making the Approval Decision
+> 💳 **Credit Risk Analysis** · 🎯 **Classification** · 💰 **Cost-Sensitive Decisions** · 🤖 **Machine Learning**
 ---
-
-## 📌 Project Overview
-
-Loan classification and credit risk analysis are important applications of machine learning in financial services. Financial institutions use borrower information, loan characteristics, and historical repayment data to assess the likelihood of loan default and support lending decisions.
-
-This project focuses on analyzing loan-related data, identifying patterns associated with repayment outcomes, and developing classification models to predict loan risk categories.
-
-The workflow may include exploratory data analysis, data preprocessing, feature engineering, class imbalance analysis, model training, and performance evaluation. Particular attention is given to the challenges of predicting rare default events and interpreting model results in a financial context.
-
-The objective is to develop a structured, data-driven approach to loan risk classification while recognizing the limitations and potential consequences of automated financial predictions.
-
+📌 Project Overview
+Credit risk screening is an important application of machine learning in financial services. A lender must decide, applicant by applicant, whether to approve a loan, and the two possible mistakes are not equally costly. Approving a borrower who later defaults can lose most of the principal, while turning away a borrower who would have repaid only forgoes the interest.
+This project uses the public German Credit dataset (1,000 past applicants, 20 recorded attributes, outcome good/bad) to build a risk score, check that its probabilities can be trusted, and turn it into an approve/reject rule that reflects the real cost of each mistake.
+The workflow covers exploratory data analysis, preprocessing, model comparison with repeated cross-validation, calibration analysis, cost-based cut-off selection, a final check on held-out applicants, and a review of feature importance and age-group outcomes.
+The objective is to show that a good ranking model is not enough: the approval cut-off must reflect the unequal costs of errors.
 ---
-
-## 🎯 Main Goal
-
-Develop and evaluate machine learning models for loan classification and credit risk analysis, using borrower and loan characteristics to predict relevant risk outcomes and assess model reliability.
-
+🎯 Main Goal
+Develop and evaluate a loan screening model that ranks applicants by default risk, produces trustworthy probabilities, and supports an approval rule that minimizes expected cost.
 ---
-
-## 🎯 Project Objectives
-
-- 📊 **Exploratory Data Analysis:** Investigate borrower characteristics, loan attributes, and repayment outcomes.
-- 🧹 **Data Preprocessing:** Handle missing values, duplicate records, and inconsistent data.
-- ⚙️ **Feature Engineering:** Prepare relevant numerical and categorical variables for modeling.
-- ⚖️ **Class Imbalance Analysis:** Investigate differences in the frequency of default and non-default cases.
-- 🎯 **Loan Classification:** Train models to predict loan outcomes or risk categories.
-- 📉 **Risk Analysis:** Examine patterns associated with repayment difficulties and default.
-- 🔍 **Model Comparison:** Evaluate multiple classification algorithms under consistent conditions.
-- ⚙️ **Hyperparameter Tuning:** Optimize model configurations using appropriate validation strategies.
-- 📏 **Performance Evaluation:** Assess predictive quality using metrics suited to imbalanced classification.
-- 🔎 **Model Interpretation:** Investigate which features influence model predictions.
-- ⚖️ **Responsible Modeling:** Consider fairness, data leakage, explainability, and the limitations of automated credit risk assessment.
-
+🎯 Project Objectives
+📊 Exploratory Data Analysis: Investigate borrower characteristics, loan attributes, and repayment outcomes.
+🧹 Data Inspection: Check data types, missing values, and the target distribution.
+⚙️ Feature Engineering: Add a `monthly_payment` feature (loan amount divided by duration) as an affordability signal.
+⚖️ Class Imbalance Analysis: Account for the 30% default rate with stratified splitting and stratified cross-validation.
+🎯 Loan Classification: Train models to predict the probability of default.
+🔍 Model Comparison: Evaluate four candidates under identical preprocessing and validation.
+📏 Performance Evaluation: Assess ranking quality (ROC AUC, average precision) and probability quality (Brier score).
+📈 Calibration Analysis: Check whether a predicted 10% risk really means about 10 in 100 defaults.
+💰 Cost-Based Decision Rule: Find the cut-off that minimizes total cost and compare it with the naive 50% rule.
+🔎 Model Interpretation: Use permutation importance to find which details drive the score.
+⚖️ Responsible Modeling: Check outcomes across age groups and discuss fairness and limitations.
 ---
-
-## 🧭 Methodology
-
-| Step | Description | Purpose |
-|---|---|---|
-| 1. Data Collection | Load loan records, borrower features, and available outcome labels | Establish the analytical dataset |
-| 2. Data Inspection | Examine data types, missing values, duplicates, and target distribution | Assess data quality |
-| 3. Exploratory Analysis | Investigate borrower characteristics and loan repayment patterns | Understand the structure of credit risk data |
-| 4. Data Preprocessing | Impute missing values and encode categorical variables where appropriate | Prepare features for modeling |
-| 5. Feature Engineering | Construct relevant variables from available loan and borrower information | Improve the representation of risk factors |
-| 6. Data Splitting | Separate training, validation, and test data using an appropriate strategy | Evaluate generalization while preventing leakage |
-| 7. Baseline Modeling | Establish a simple classification benchmark | Provide a reference for more advanced models |
-| 8. Model Training | Fit selected classification algorithms | Learn patterns associated with the target outcome |
-| 9. Model Optimization | Tune hyperparameters and assess class imbalance strategies | Improve predictive performance |
-| 10. Model Evaluation | Analyze classification metrics, confusion matrices, and ranking performance | Assess model strengths and weaknesses |
-| 11. Model Interpretation | Examine feature importance or suitable explanation methods | Understand factors associated with predictions |
-| 12. Risk Analysis | Interpret results in the context of loan default and repayment risk | Assess potential applications and limitations |
-
+🧭 Methodology
+Step	Description	Purpose
+1. Data Collection	Load `german_credit.csv`, or fetch the dataset from OpenML	Establish the analytical dataset
+2. Data Inspection	Examine data types, missing values, and target distribution	Assess data quality
+3. Exploratory Analysis	Default rate by checking-account status, loan size and duration by outcome	Understand what separates good from bad outcomes
+4. Feature Engineering	Add `monthly_payment`	Improve the representation of affordability
+5. Data Splitting	Stratified 75/25 train/test split	Evaluate generalization, keep the test set untouched
+6. Baseline Modeling	Do-nothing classifier predicting the class prior	Provide a reference floor
+7. Model Training	Logistic regression, random forest, gradient boosting	Learn patterns associated with default
+8. Model Evaluation	Stratified 5-fold cross-validation repeated 3 times	Get a stable estimate on a small dataset
+9. Calibration Check	Out-of-fold predictions and calibration curves	Test whether probabilities can be acted on
+10. Cut-off Selection	Try cut-offs from 5% to 95% on out-of-fold training predictions	Find the lowest-cost rule
+11. Final Check	Score the 250 held-out applicants once, compare four policies	Confirm the rule saves money on unseen data
+12. Interpretation	Permutation importance and age-group analysis	Understand drivers and check for large disparities
 ---
-
-## 📊 Exploratory Data Analysis
-
-Exploratory analysis helps identify patterns, irregularities, and relationships within loan data.
-
-Potential analyses include:
-
-- **Target Distribution:** Examine the proportion of default and non-default cases.
-- **Loan Characteristics:** Investigate loan amounts, interest rates, loan terms, and repayment outcomes where available.
-- **Borrower Characteristics:** Explore relevant financial variables such as income, debt-to-income ratio, and credit history when present in the dataset.
-- **Correlation Analysis:** Investigate relationships between numerical features.
-- **Group Comparisons:** Compare repayment outcomes across selected loan categories.
-- **Missing-Value Analysis:** Determine whether missingness affects important variables or groups.
-
-These analyses can reveal associations in the observed data, but they do not establish that a particular characteristic causes loan default.
-
+📊 Exploratory Data Analysis
+Target Distribution: 30% of applicants defaulted.
+Checking-Account Status: Default rate rises sharply with account status, from about 12% (no checking account) to about 49% (overdrawn account).
+Loan Duration: Defaulters typically had longer loans (median about 24 months vs 18).
+Loan Amount: Defaulters had somewhat larger loans in the upper range, though the medians are similar.
+Missing Values: None.
+These analyses reveal associations in the observed data, but they do not show that a characteristic causes default.
 ---
-
-## ⚙️ Feature Engineering and Preprocessing
-
-Financial datasets frequently contain numerical variables, categorical attributes, and missing observations.
-
-Potential preprocessing techniques include:
-
-- **Missing-Value Imputation:** Use suitable statistical or categorical imputation strategies.
-- **Categorical Encoding:** Apply one-hot encoding or other appropriate encoding methods.
-- **Feature Scaling:** Standardize numerical features when required by the selected algorithm.
-- **Outlier Investigation:** Examine unusual values and determine whether they represent errors or legitimate financial observations.
-- **Feature Selection:** Identify useful predictors while avoiding leakage from the target or future information.
-- **Pipeline Construction:** Combine preprocessing and modeling using Scikit-learn pipelines.
-
-All preprocessing steps that learn parameters from data should be fitted using training data only, with validation and test data transformed consistently.
-
+⚙️ Feature Engineering and Preprocessing
+Feature Scaling: Numerical features are standardized.
+Categorical Encoding: Categorical features are one-hot encoded.
+Feature Construction: `monthly_payment` is added.
+Pipeline Construction: Preprocessing and model sit in one Scikit-learn pipeline, so everything that learns from data is re-fitted on each training fold and never sees held-out data.
 ---
-
-## 🎯 Classification Models
-
-The following algorithms are potential candidates for comparing loan classification performance.
-
-| Algorithm | Description | Potential Advantage |
-|---|---|---|
-| Logistic Regression | Models the probability of a binary outcome | Interpretable baseline |
-| Decision Tree | Learns hierarchical decision rules | Captures nonlinear relationships |
-| Random Forest | Combines predictions from multiple decision trees | Models complex feature interactions |
-| Gradient Boosting | Builds an ensemble of sequentially improved models | Can capture complex predictive patterns |
-| XGBoost *(optional)* | Implements gradient-boosted decision trees | Offers flexible optimization and regularization |
-| Support Vector Machine (SVM) | Learns decision boundaries between classes | Useful for selected feature spaces and dataset sizes |
-
-Model selection should depend on predictive performance, computational requirements, interpretability, calibration, and the intended application.
-
+🎯 Classification Models
+Algorithm	Role in this project
+Baseline (class prior)	Floor that every other model must beat
+Logistic Regression	Interpretable model, selected as the final model
+Random Forest	Captures nonlinear interactions
+Gradient Boosting	Flexible ensemble
+Model selection used ranking quality, calibration around the cut-off, and simplicity of explanation.
 ---
-
-## ⚖️ Class Imbalance and Risk Prediction
-
-Loan datasets may contain substantially fewer default cases than non-default cases. In such situations, a model can achieve high accuracy simply by predicting the majority class.
-
-Potential approaches include:
-
-- **Class Weights:** Increase the training penalty associated with errors on the minority class.
-- **Resampling:** Investigate oversampling or undersampling techniques within the training workflow.
-- **Threshold Optimization:** Select a classification threshold appropriate to the intended evaluation criteria.
-- **Stratified Splitting:** Preserve approximate class proportions when appropriate for the dataset and validation design.
-
-Resampling and threshold selection must be performed without using information from the held-out test set.
-
-The costs of false positives and false negatives may differ substantially in credit risk applications. Therefore, the evaluation should consider the consequences of different error types rather than relying on accuracy alone.
-
+⚖️ Class Imbalance and Cost-Sensitive Decisions
+The two errors have different costs: approving a borrower who defaults costs 5 units, while rejecting a borrower who would have repaid costs 1 unit. This 5-to-1 ratio is the one published with the German Credit dataset.
+Approving is worth it only when 5 × P(default) < 1 × (1 − P(default)), which gives a cut-off of 1/6 (about 17%). The notebook compares this theoretical cut-off with the best cut-off found on the training data and with the naive 50% rule.
+The cut-off is chosen on training data only. The test set is used once, at the end.
 ---
-
-## 📏 Model Evaluation
-
-Several metrics can provide complementary information about classification performance.
-
-| Metric | Description |
-|---|---|
-| Accuracy | Proportion of correctly classified observations |
-| Precision | Proportion of predicted default cases that are actual defaults |
-| Recall | Proportion of actual default cases correctly identified |
-| F1-Score | Harmonic mean of precision and recall |
-| Confusion Matrix | Summarizes correct and incorrect predictions by class |
-| ROC-AUC | Measures the model's ability to rank positive cases above negative cases across thresholds |
-| PR-AUC | Summarizes the precision-recall trade-off, particularly useful for rare positive cases |
-| Brier Score *(optional)* | Measures the accuracy of predicted probabilities |
-
-Probability calibration can also be important when predictions are interpreted as estimated default probabilities.
-
-Evaluation should be performed on held-out data representative of the intended prediction setting. If the task involves predicting future loan outcomes, a time-based split may be more appropriate than a random split.
-
+📏 Model Evaluation
+Metric	Why it is used
+ROC AUC	Does a random defaulter get a higher score than a random repayer?
+Average Precision	How concentrated are defaulters at the top of the ranking?
+Brier Score	Quality of the predicted probabilities (lower is better)
+Calibration Curve	Does predicted risk match observed default frequency?
+Total Cost	Cost of both mistakes combined, which is the decision metric
+Cross-validation results (training data, 15 test scores per model):
+Model	ROC AUC	Avg Precision	Brier
+Logistic regression	0.774	0.589	0.173
+Random forest	0.768	0.600	0.171
+Gradient boosting	0.752	0.574	0.190
+Baseline	0.500	0.300	0.210
+The three real models are effectively tied on ranking (the fold-to-fold spread is about 0.03). Calibration decided the choice: logistic regression stayed closest to the diagonal around the 17% cut-off, gradient boosting was too optimistic at low predicted risk, and random forest was erratic.
 ---
-
-## 🔎 Model Interpretation and Risk Analysis
-
-Understanding model predictions is particularly important when they may influence financial decisions.
-
-Potential interpretation methods include:
-
-- **Logistic Regression Coefficients:** Examine how model features relate to predicted log-odds, subject to the model's assumptions and feature encoding.
-- **Tree-Based Feature Importance:** Identify features used extensively by a fitted tree ensemble.
-- **Permutation Importance:** Measure how model performance changes when a feature is shuffled.
-- **SHAP *(optional)*:** Investigate feature contributions to individual predictions and overall model behavior.
-- **Probability Calibration:** Assess whether predicted risk probabilities correspond reasonably to observed outcome frequencies.
-
-Feature importance and explanation methods describe aspects of a model's behavior; they do not establish causality.
-
-A responsible analysis should also consider data representativeness, potential disparities between groups, privacy, and applicable financial regulations. Predictive performance alone is not sufficient to establish that a model is appropriate for real lending decisions.
-
+💰 Final Result on Held-Out Applicants
+Total cost on the 250 test applicants:
+Policy	Total cost	Per applicant
+Model, chosen cut-off (1/6)	131	0.52
+Reject everyone	175	0.70
+Model, naive 50% rule	190	0.76
+Approve everyone	375	1.50
+The cost-aware rule is about 31% cheaper than the naive 50% rule. The naive rule is even worse than rejecting everyone, so a good ranking model only pays off when its cut-off reflects the real costs. The best training cut-off (0.20) performed the same as the theoretical 1/6 (130 vs 131), so the simple rule "reject above 1/6" is enough.
 ---
-
-## 🛠️ Technologies & Tools
-
-| Category | Technologies |
-|---|---|
-| Programming Language | Python |
-| Data Manipulation | Pandas, NumPy |
-| Data Visualization | Matplotlib, Seaborn |
-| Machine Learning | Scikit-learn |
-| Gradient Boosting *(optional)* | XGBoost |
-| Class Imbalance *(optional)* | imbalanced-learn |
-| Model Interpretation *(optional)* | SHAP |
-| Development Environment | Jupyter Notebook |
-
-*The final list should reflect the tools actually used in the project.*
-
+🔎 Model Interpretation and Risk Analysis
+Permutation Importance: The model relies most on checking-account status (AUC drop 0.094), then loan duration (0.045), purpose (0.034), savings status (0.030), and credit history (0.029). Loan amount matters less (0.013).
+Age Groups: The rule rejects about 60% of applicants against a 30% default rate, because a cost-aware cut-off is deliberately cautious. Reject rates follow real risk: highest under 25 (72% rejected, 40% default) and lowest at ages 35-49 (49% rejected, 19% default). The gap between reject rate and default rate is about 30 percentage points in the three largest bands. The 50+ band has only 22 applicants and is too noisy to interpret.
+Feature importance describes model behavior; it does not establish causality. Age is a model input here, which would raise legal and fairness questions in real lending.
 ---
-
-## 📁 Project Structure
-
+🛠️ Technologies & Tools
+Category	Technologies
+Programming Language	Python 3.10+
+Data Manipulation	Pandas, NumPy
+Data Visualization	Matplotlib (3.9+)
+Machine Learning	Scikit-learn
+Development Environment	Jupyter Notebook
+```bash
+pip install numpy pandas matplotlib scikit-learn jupyter
+```
+---
+📁 Project Structure
 ```text
-10_Advanced_Loan_Classification_Risk_Analysis/
+credit-risk-screening/
 │
 ├── README.md
-├── project.ipynb
-│
-├── data/                  # Dataset, if included
-├── figures/               # Generated visualizations
-└── results/               # Evaluation results, if included
+├── credit_risk_screening.ipynb
+└── german_credit.csv          # Optional local copy of the data
 ```
-
-The directory structure can be adapted to the actual workflow. Sensitive financial data should not be committed to a public repository.
-
+If `german_credit.csv` is not present, the notebook downloads the dataset from OpenML (internet connection required).
 ---
-
-## 🚀 Expected Outcomes
-
-The project aims to produce:
-
-- A structured workflow for analyzing loan-related data.
-- An exploratory assessment of borrower and loan characteristics.
-- One or more trained classification models.
-- A comparison of model performance using appropriate metrics.
-- An investigation of class imbalance and classification thresholds.
-- An interpretation of model behavior and predicted risk patterns.
-- A discussion of limitations, potential bias, and responsible use.
-
-The final conclusions should be supported by experimental results rather than assumed performance improvements.
-
+🚀 How to Run
+```bash
+git clone <your-repo-url>
+cd <your-repo-name>
+jupyter notebook credit_risk_screening.ipynb
+```
+Use Run All. To test a different cost ratio, change `COST_BAD_APPROVED` and `COST_GOOD_REJECTED` in the setup cell, and update `chosen_cutoff` in the final policy cell to cost_good_rejected / (cost_bad_approved + cost_good_rejected).
 ---
-
-## 🔬 Scientific Motivation
-
-Credit risk analysis is an important application of statistical modeling and machine learning. Predictive models can help identify patterns associated with repayment difficulties and support the analysis of loan portfolios.
-
-However, financial risk prediction involves more than maximizing classification accuracy. Rare events, uncertain predictions, unequal error costs, data quality, and fairness considerations all affect the usefulness of a model.
-
-This project provides an opportunity to explore these challenges through a reproducible machine learning workflow, connecting predictive modeling with model interpretation and responsible financial data analysis.
-
+⚠️ Limitations
+Small data: With 1,000 applicants (250 in the test set), the exact savings are approximate. The order of the policies is clear, but the percentages could shift with a different split.
+Assumed costs: The 5-to-1 ratio comes with the dataset. A real lender should use its own figures for losses and interest.
+Old, selected data: The data are historical German loans, and outcomes are only known for approved applicants, so the model may not generalize to people the bank would have rejected.
+Cost of caution: The rule rejects many applicants who would have repaid. Its cost counts only the forgone interest.
+Fairness: Age is an input to the model, and the notebook only checks outcomes across age groups. Using age in real lending decisions is restricted or illegal in many countries.
 ---
-
-## 📌 Project Focus
-
-**Loan Data → Exploratory Analysis → Preprocessing → Feature Engineering → Classification → Risk Evaluation → Model Interpretation → Responsible Analysis**
+🔬 Scientific Motivation
+Credit risk analysis is an important application of statistical modeling and machine learning. However, financial risk prediction involves more than maximizing ranking accuracy. Unequal error costs, probability quality, small samples, and fairness considerations all affect whether a model is useful.
+This project explores these challenges in a reproducible workflow, connecting predictive modeling with calibration, cost-based decision making, and responsible financial data analysis.
+---
+📚 Data Source
+The German Credit dataset is available from the UCI Machine Learning Repository and OpenML (data id 31). Check the dataset's terms before redistributing `german_credit.csv`.
+---
+📌 Project Focus
+Loan Data → Exploratory Analysis → Preprocessing → Model Comparison → Calibration → Cost-Based Cut-off → Held-Out Evaluation → Interpretation → Responsible Analysis
